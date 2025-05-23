@@ -1,0 +1,11 @@
+/*
+EXPLICACIÓN DE LAS RELACIONES:
+
+- Customer - ShoppingCart: OneToOne. Cada cliente tiene un carrito único. Se usa `mappedBy` de un lado y `@JoinColumn` del otro.
+- ShoppingCart - CartItem: OneToMany. Un carrito contiene muchos ítems. CartItem lleva la FK.
+- CartItem - Product: ManyToOne. Muchos ítems pueden ser del mismo producto. FK en CartItem.
+- Product - Category: ManyToOne. Muchos productos pueden ser de una categoría. FK en Product.
+- Category - Product: OneToMany. Una categoría tiene muchos productos. `mappedBy` en Category.
+- Customer - Order: OneToMany. Un cliente hace varias compras. FK en Order.
+- Order puede tener una relación con OrderItem si se quiere desnormalizar más.
+*/

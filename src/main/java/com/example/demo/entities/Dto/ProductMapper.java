@@ -1,0 +1,20 @@
+package com.example.demo.entities.Dto;
+
+import com.example.demo.entities.Product;
+
+public class ProductMapper {
+
+    public static ProductResponseDto toDto(Product product) {
+        ProductResponseDto dto = new ProductResponseDto();
+
+        dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setPrice(product.getPrice());
+        dto.setDescription(product.getDescription());
+        dto.setImage(product.getImage());
+        dto.setStock(product.getStock());
+        dto.setCategoryId(product.getCategory().getId());
+        return dto;
+    }
+
+}
