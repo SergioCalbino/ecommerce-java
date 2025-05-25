@@ -1,5 +1,6 @@
 package com.example.demo.entities.Dto;
 
+import com.example.demo.entities.Category;
 import com.example.demo.entities.Product;
 
 public class ProductMapper {
@@ -15,6 +16,19 @@ public class ProductMapper {
         dto.setStock(product.getStock());
         dto.setCategoryId(product.getCategory().getId());
         return dto;
+    }
+
+    public static Product fromDto(ProductDto productDto, Category category) {
+
+        Product product = new Product();
+
+        product.setName(productDto.getName());
+        product.setImage(productDto.getImage());
+        product.setPrice(productDto.getPrice());
+        product.setStock(productDto.getStock());
+        product.setDescription(productDto.getDescription());
+        product.setCategory(category);
+        return product;
     }
 
 }

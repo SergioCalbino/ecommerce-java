@@ -8,7 +8,7 @@ public class ProductResponseDto {
     private Double price;
     private String description;
     private String image;
-    private int stock;
+    private Integer stock;
     private Long categoryId;
 
     public String getName() {
@@ -43,11 +43,11 @@ public class ProductResponseDto {
         this.image = image;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 

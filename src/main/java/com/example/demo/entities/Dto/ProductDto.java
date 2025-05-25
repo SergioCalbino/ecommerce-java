@@ -27,7 +27,7 @@ public class ProductDto {
 
     @NotNull
     @Min(value = 1)
-    private int stock;
+    private Integer stock;
 
 
     private Long categoryId;
@@ -64,11 +64,11 @@ public class ProductDto {
         this.image = image;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
