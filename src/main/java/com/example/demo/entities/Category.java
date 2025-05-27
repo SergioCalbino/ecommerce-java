@@ -14,7 +14,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String name;
+    private String name;
 
     // Una categoría puede tener muchos productos (1:N)
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

@@ -1,6 +1,4 @@
-package com.example.demo.entities.Dto;
-
-import com.example.demo.entities.Product;
+package com.example.demo.product.dto;
 
 public class ProductResponseDto {
     private Long id;
