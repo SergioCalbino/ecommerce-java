@@ -1,13 +1,9 @@
 package com.example.demo.product;
 
-import com.example.demo.entities.Dto.ProductDto;
-import com.example.demo.entities.Dto.ProductResponseDto;
-import com.example.demo.entities.Product;
+import com.example.demo.product.dto.ProductDto;
+import com.example.demo.product.dto.ProductResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface ProductService {
 

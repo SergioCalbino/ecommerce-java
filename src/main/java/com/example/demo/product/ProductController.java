@@ -1,9 +1,8 @@
 package com.example.demo.product;
 
-import com.example.demo.entities.Dto.ProductDto;
-import com.example.demo.entities.Dto.ProductMapper;
-import com.example.demo.entities.Dto.ProductResponseDto;
-import com.example.demo.entities.Product;
+import com.example.demo.herlpers.ApiResponse;
+import com.example.demo.product.dto.ProductDto;
+import com.example.demo.product.dto.ProductResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,14 +39,15 @@ public class ProductController {
     public ResponseEntity<?> create (@Valid @RequestBody ProductDto productDto){
         ProductResponseDto productResponseDto = productService.save(productDto);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(productResponseDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(
+                201,
+                "Product created successfully",
+                productResponseDto));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> listById (@PathVariable Long id) {
         ProductResponseDto ProductResponseDto = productService.findById(id);
-
-
         return ResponseEntity.ok(ProductResponseDto);
 
 
@@ -56,7 +56,10 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update( @PathVariable Long id, @Valid @RequestBody ProductDto productDto) {
         ProductResponseDto productResponseDto = productService.update(id, productDto);
-        return ResponseEntity.status(HttpStatus.OK).body(productResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(
+                200,
+                "Product updated successfully",
+                productResponseDto));
 
     }
 

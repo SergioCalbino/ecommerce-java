@@ -1,6 +1,10 @@
 package com.example.demo.category;
 
+import com.example.demo.category.dto.CategoryDto;
+import com.example.demo.category.dto.CategoryMapper;
+import com.example.demo.category.dto.CategoryResponseDto;
 import com.example.demo.entities.Category;
+import com.example.demo.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,30 +23,51 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Category> listAll() {
-        return categoryRepository.findAll();
+    public List<CategoryResponseDto> listAll() {
+        List<Category> categoryList = categoryRepository.findAll();
+        return categoryList.stream().map(CategoryMapper::toDto).toList();
     }
 
     @Override
-    public Optional<Category> findById(Long id) {
-        return Optional.empty();
+    public CategoryResponseDto findById(Long id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Category with id " + id + "not found"));
+        return CategoryMapper.toDto(category);
+
+
     }
 
     @Override
     @Transactional
-    public Category save(Category category) {
-        return categoryRepository.save(category);
+    public CategoryResponseDto save(CategoryDto categoryDto) {
+
+       Category newCategory = new Category();
+        newCategory.setName(categoryDto.getName());
+
+        Category savedCategory = categoryRepository.save(newCategory);
+        return CategoryMapper.toCreateDto(savedCategory);
+    }
+
+    @Override
+    public CategoryResponseDto update(Long id, CategoryDto categoryDto) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Category with id " + id + " not found"));
+
+        category.setName(categoryDto.getName());
+        Category updatedCategory = categoryRepository.save(category);
+        return CategoryMapper.toUpdateDto(updatedCategory);
 
 
     }
 
     @Override
-    public Optional<Category> update(Long id, Category category) {
-        return Optional.empty();
-    }
+    public CategoryResponseDto delete(Long id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Category with id " + id + " not found"));
 
-    @Override
-    public Optional<Category> delete(Long id) {
-        return Optional.empty();
+        CategoryResponseDto deletedCategory = CategoryMapper.toDeleteDto(category);
+        categoryRepository.delete(category);
+        return deletedCategory;
+
     }
 }

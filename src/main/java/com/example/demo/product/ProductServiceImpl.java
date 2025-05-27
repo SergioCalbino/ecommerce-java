@@ -2,14 +2,12 @@ package com.example.demo.product;
 
 import com.example.demo.category.CategoryRepository;
 import com.example.demo.entities.Category;
-import com.example.demo.entities.Dto.ProductDto;
-import com.example.demo.entities.Dto.ProductMapper;
-import com.example.demo.entities.Dto.ProductResponseDto;
+import com.example.demo.product.dto.ProductDto;
+import com.example.demo.product.dto.ProductMapper;
+import com.example.demo.product.dto.ProductResponseDto;
 import com.example.demo.entities.Product;
 import com.example.demo.exceptions.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

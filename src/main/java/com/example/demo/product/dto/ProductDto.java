@@ -1,8 +1,5 @@
-package com.example.demo.entities.Dto;
+package com.example.demo.product.dto;
 
-import com.example.demo.entities.Category;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

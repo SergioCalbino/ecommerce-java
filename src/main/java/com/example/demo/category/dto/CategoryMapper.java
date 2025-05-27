@@ -1,0 +1,49 @@
+package com.example.demo.category.dto;
+
+import com.example.demo.entities.Category;
+import com.example.demo.product.dto.ProductMapper;
+import com.example.demo.product.dto.ProductResponseDto;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class CategoryMapper {
+
+    public static CategoryResponseDto toDto(Category category) {
+
+        CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
+        categoryResponseDto.setId(category.getId());
+        categoryResponseDto.setName(category.getName());
+        List<ProductResponseDto> productResponseDtos = category.getProducts()
+                .stream().map(product -> ProductMapper.toDto(product))
+                .collect(Collectors.toList());
+        categoryResponseDto.setProductResponseDtoList(productResponseDtos);
+
+        return categoryResponseDto;
+
+
+    }
+
+    public static CategoryResponseDto toCreateDto(Category category){
+        CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
+        categoryResponseDto.setName(category.getName());
+
+        return categoryResponseDto;
+    }
+
+    public static CategoryResponseDto toUpdateDto(Category category){
+        CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
+        categoryResponseDto.setName(category.getName());
+
+        return categoryResponseDto;
+    }
+
+    public static CategoryResponseDto toDeleteDto(Category category) {
+        CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
+        categoryResponseDto.setId(category.getId());
+        categoryResponseDto.setName(category.getName());
+        return categoryResponseDto;
+    }
+
+
+}

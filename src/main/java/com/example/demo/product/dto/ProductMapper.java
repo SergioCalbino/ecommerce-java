@@ -1,4 +1,4 @@
-package com.example.demo.entities.Dto;
+package com.example.demo.product.dto;
 
 import com.example.demo.entities.Category;
 import com.example.demo.entities.Product;
