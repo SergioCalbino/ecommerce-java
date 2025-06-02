@@ -1,8 +1,8 @@
-package com.example.demo.category.dto;
+package com.example.demo.mappers;
 
+import com.example.demo.Dto.CategoryResponseDto;
 import com.example.demo.entities.Category;
-import com.example.demo.product.dto.ProductMapper;
-import com.example.demo.product.dto.ProductResponseDto;
+import com.example.demo.Dto.ProductResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

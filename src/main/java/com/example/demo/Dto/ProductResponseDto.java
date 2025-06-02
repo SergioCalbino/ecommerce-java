@@ -1,32 +1,12 @@
-package com.example.demo.product.dto;
+package com.example.demo.Dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
-public class ProductDto {
+public class ProductResponseDto {
     private Long id;
-
-    @NotBlank
-    @Size(min = 4, max = 20)
     private String name;
-
-    @NotNull
-    @Min(value = 1)
     private Double price;
-
-    @NotBlank
-    @Size(min = 4, max = 100)
     private String description;
-
     private String image;
-
-    @NotNull
-    @Min(value = 1)
     private Integer stock;
-
-
     private Long categoryId;
 
     public String getName() {
@@ -84,4 +64,6 @@ public class ProductDto {
     public void setId(Long id) {
         this.id = id;
     }
+
+
 }

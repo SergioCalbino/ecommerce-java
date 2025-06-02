@@ -1,8 +1,8 @@
-package com.example.demo.category;
+package com.example.demo.controllers;
 
-import com.example.demo.category.dto.CategoryDto;
-import com.example.demo.category.dto.CategoryResponseDto;
-import com.example.demo.entities.Category;
+import com.example.demo.services.CategoryService;
+import com.example.demo.Dto.CategoryDto;
+import com.example.demo.Dto.CategoryResponseDto;
 import com.example.demo.herlpers.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -62,6 +62,16 @@ public class CategoryController {
                 204,
                 "Category deleted successfully",
                 null
+        ));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> findByName(@RequestParam String name) {
+        CategoryResponseDto categoryResponseDto = categoryService.findByName(name);
+        return ResponseEntity.ok(new ApiResponse<>(
+                200,
+                "Category found",
+                categoryResponseDto
         ));
     }
 

@@ -2,6 +2,7 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,7 +33,15 @@ public class Customer {
 
     // Un cliente puede tener muchas órdenes (relación 1:N)
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     // Un cliente tiene un único carrito (relación 1:1)
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
