@@ -1,5 +1,7 @@
-package com.example.demo.product.dto;
+package com.example.demo.mappers;
 
+import com.example.demo.Dto.ProductDto;
+import com.example.demo.Dto.ProductResponseDto;
 import com.example.demo.entities.Category;
 import com.example.demo.entities.Product;
 
@@ -28,6 +30,7 @@ public class ProductMapper {
         product.setStock(productDto.getStock());
         product.setDescription(productDto.getDescription());
         product.setCategory(category);
+
         return product;
     }
 

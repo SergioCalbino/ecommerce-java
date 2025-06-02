@@ -1,6 +1,5 @@
-package com.example.demo.category.dto;
+package com.example.demo.Dto;
 
-import com.example.demo.product.dto.ProductResponseDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 

@@ -1,7 +1,7 @@
-package com.example.demo.product;
+package com.example.demo.services;
 
-import com.example.demo.product.dto.ProductDto;
-import com.example.demo.product.dto.ProductResponseDto;
+import com.example.demo.Dto.ProductDto;
+import com.example.demo.Dto.ProductResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,5 +12,7 @@ public interface ProductService {
     ProductResponseDto save(ProductDto product);
     ProductResponseDto update(Long id, ProductDto productDto);
     ProductResponseDto delete(Long id);
+    ProductResponseDto findByName(String name);
+
 
 }

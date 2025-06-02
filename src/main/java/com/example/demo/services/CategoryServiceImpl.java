@@ -1,15 +1,15 @@
-package com.example.demo.category;
+package com.example.demo.services;
 
-import com.example.demo.category.dto.CategoryDto;
-import com.example.demo.category.dto.CategoryMapper;
-import com.example.demo.category.dto.CategoryResponseDto;
+import com.example.demo.Dto.CategoryDto;
+import com.example.demo.mappers.CategoryMapper;
+import com.example.demo.Dto.CategoryResponseDto;
 import com.example.demo.entities.Category;
 import com.example.demo.exceptions.NotFoundException;
+import com.example.demo.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -69,5 +69,13 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.delete(category);
         return deletedCategory;
 
+    }
+
+    @Override
+    public CategoryResponseDto findByName(String name) {
+        Category category = categoryRepository.findByNameIgnoreCase(name)
+                .orElseThrow(() -> new NotFoundException("Category with " + name + "not found"));
+
+        return CategoryMapper.toDto(category);
     }
 }

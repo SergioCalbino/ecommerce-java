@@ -10,8 +10,16 @@ import java.util.List;
 @Table(name = "orders")
 public class Order {
 
-    private Order(){
+    public Order(){
 
+    }
+
+    public Order(Date date, Customer customer, List<OrderItem> orderItems, Double total, OrderState state) {
+        this.date = date;
+        this.customer = customer;
+        this.orderItems = orderItems;
+        this.total = total;
+        this.state = state;
     }
 
     @Id

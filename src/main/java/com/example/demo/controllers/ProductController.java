@@ -1,8 +1,9 @@
-package com.example.demo.product;
+package com.example.demo.controllers;
 
 import com.example.demo.herlpers.ApiResponse;
-import com.example.demo.product.dto.ProductDto;
-import com.example.demo.product.dto.ProductResponseDto;
+import com.example.demo.Dto.ProductDto;
+import com.example.demo.Dto.ProductResponseDto;
+import com.example.demo.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -68,6 +69,17 @@ public class ProductController {
         productService.delete(id);
         return ResponseEntity.noContent().build();
 
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchProduct(@RequestParam String name){
+        ProductResponseDto productToSearch = productService.findByName(name);
+        return ResponseEntity.ok(new ApiResponse<>(
+                200,
+                "Product was found",
+                productToSearch
+
+        ));
     }
 
 

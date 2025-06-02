@@ -1,6 +1,6 @@
 package com.example.demo.validations;
 
-import com.example.demo.category.CategoryRepository;
+import com.example.demo.repositories.CategoryRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;
