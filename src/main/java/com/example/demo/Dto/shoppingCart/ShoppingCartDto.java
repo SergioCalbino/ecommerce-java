@@ -1,5 +1,6 @@
-package com.example.demo.Dto;
+package com.example.demo.Dto.shoppingCart;
 
+import com.example.demo.Dto.cartItem.CartItemDto;
 import com.example.demo.entities.Customer;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.example.demo.mappers;
 
-import com.example.demo.Dto.ShoppingCartDto;
-import com.example.demo.Dto.ShoppingCartResponseDto;
+import com.example.demo.Dto.shoppingCart.ShoppingCartDto;
+import com.example.demo.Dto.shoppingCart.ShoppingCartResponseDto;
 import com.example.demo.entities.ShoppingCart;
 
 public class ShoppingMapper {
@@ -20,6 +20,7 @@ public class ShoppingMapper {
                         .map(CartItemMapper::toDto)
                         .toList()
         );
+        shoppingResponseDto.setId(shoppingCart.getId());
 
         //shoppingResponseDto.setCustomerResponseDto(CustomerMapper.toDto(shoppingCart.getCustomer()));
        //

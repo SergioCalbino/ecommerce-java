@@ -1,7 +1,9 @@
 package com.example.demo.mappers;
 
-import com.example.demo.Dto.OrderItemDto;
-import com.example.demo.Dto.OrderItemResponseDto;
+import com.example.demo.Dto.orderItem.OrderItemDto;
+import com.example.demo.Dto.orderItem.OrderItemResponseDto;
+import com.example.demo.entities.CartItem;
+import com.example.demo.entities.Order;
 import com.example.demo.entities.OrderItem;
 import com.example.demo.entities.Product;
 
@@ -28,6 +30,18 @@ public class OrderItemMapper {
         orderItem.setProduct(product);
         orderItem.setUnitPrice(orderItemDto.getUnitPrice());
         orderItem.setOrder(null);
+
+        return orderItem;
+
+    }
+
+    public static OrderItem fromCartItem(CartItem cartItem, Order order){
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setProduct(cartItem.getProduct());
+        orderItem.setQuantity(cartItem.getQuantity());
+        orderItem.setUnitPrice(cartItem.getProduct().getPrice());
+        orderItem.setOrder(order);
 
         return orderItem;
 

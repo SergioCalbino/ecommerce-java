@@ -1,4 +1,7 @@
-package com.example.demo.Dto;
+package com.example.demo.Dto.customer;
+
+import com.example.demo.Dto.order.OrderResponseDto;
+import com.example.demo.Dto.shoppingCart.ShoppingCartResponseDto;
 
 import java.util.List;
 
@@ -8,7 +11,7 @@ public class CustomerResponseDto {
     private String name;
     private String email;
     private String password;
-    private String addres;
+    private String address;
 
     private List<OrderResponseDto> orderResponseDto;
     private ShoppingCartResponseDto shoppingResponseDto;
@@ -45,12 +48,12 @@ public class CustomerResponseDto {
         this.password = password;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddres(String address) {
+        this.address = address;
     }
 
     public ShoppingCartResponseDto getShoppingResponseDto() {

@@ -1,8 +1,8 @@
-package com.example.demo.Dto;
+package com.example.demo.Dto.cartItem;
 
-import com.example.demo.entities.ShoppingCart;
-
-import java.util.List;
+import com.example.demo.Dto.product.ProductResponseDto;
+import com.example.demo.Dto.shoppingCart.ShoppingCartResponseDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CartItemResponseDto {
 
@@ -19,7 +19,18 @@ public class CartItemResponseDto {
     private Long id;
     private ProductResponseDto product;
     private Integer quantity;
+    @JsonIgnore
     private ShoppingCartResponseDto shoppingCartResponseDto;
+    @JsonIgnore
+    private Integer shoppingCartId;
+
+    public Integer getShoppingCartId() {
+        return shoppingCartId;
+    }
+
+    public void setShoppingCartId(Integer shoppingCartId) {
+        this.shoppingCartId = shoppingCartId;
+    }
 
     public Long getId() {
         return id;

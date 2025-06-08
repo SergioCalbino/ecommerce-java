@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.Dto.CategoryDto;
-import com.example.demo.Dto.CategoryResponseDto;
+import com.example.demo.Dto.category.CategoryDto;
+import com.example.demo.Dto.category.CategoryResponseDto;
 
 import java.util.List;
 

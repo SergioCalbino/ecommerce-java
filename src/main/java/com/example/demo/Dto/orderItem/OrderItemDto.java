@@ -1,8 +1,7 @@
-package com.example.demo.Dto;
+package com.example.demo.Dto.orderItem;
 
-import com.example.demo.entities.Order;
-import com.example.demo.entities.Product;
-import jakarta.persistence.*;
+import com.example.demo.Dto.order.OrderDto;
+import com.example.demo.Dto.product.ProductDto;
 
 public class OrderItemDto {
 

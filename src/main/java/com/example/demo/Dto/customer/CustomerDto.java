@@ -1,4 +1,10 @@
-package com.example.demo.Dto;
+package com.example.demo.Dto.customer;
+
+import com.example.demo.Dto.order.OrderDto;
+import com.example.demo.Dto.shoppingCart.ShoppingCartDto;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -17,12 +23,31 @@ public class CustomerDto {
 
 
     private Long id;
+
+    @NotBlank
     private String name;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
+
+    @NotBlank
     private String address;
 
     private List<OrderDto> orderDto;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     private ShoppingCartDto shoppingCartDto;
 
     public String getName() {
