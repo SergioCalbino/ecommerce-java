@@ -1,7 +1,8 @@
-package com.example.demo.Dto;
+package com.example.demo.Dto.shoppingCart;
 
-import com.example.demo.entities.Customer;
-import org.apache.juli.logging.Log;
+import com.example.demo.Dto.customer.CustomerResponseDto;
+import com.example.demo.Dto.cartItem.CartItemResponseDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class ShoppingCartResponseDto {
     }
 
     private Long id;
+    @JsonIgnore
     private CustomerResponseDto customerResponseDto;
     private List<CartItemResponseDto> cartItemResponseDto;
     private Long customerId;

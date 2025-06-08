@@ -1,7 +1,7 @@
 package com.example.demo.mappers;
 
-import com.example.demo.Dto.ProductDto;
-import com.example.demo.Dto.ProductResponseDto;
+import com.example.demo.Dto.product.ProductDto;
+import com.example.demo.Dto.product.ProductResponseDto;
 import com.example.demo.entities.Category;
 import com.example.demo.entities.Product;
 

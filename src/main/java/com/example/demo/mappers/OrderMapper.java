@@ -1,9 +1,8 @@
 package com.example.demo.mappers;
 
-import com.example.demo.Dto.OrderDto;
-import com.example.demo.Dto.OrderResponseDto;
+import com.example.demo.Dto.order.OrderDto;
+import com.example.demo.Dto.order.OrderResponseDto;
 import com.example.demo.entities.Order;
-import com.example.demo.entities.utilities.OrderState;
 
 public class OrderMapper {
 

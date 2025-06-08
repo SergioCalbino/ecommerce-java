@@ -1,4 +1,7 @@
-package com.example.demo.Dto;
+package com.example.demo.Dto.orderItem;
+
+import com.example.demo.Dto.order.OrderResponseDto;
+import com.example.demo.Dto.product.ProductResponseDto;
 
 public class OrderItemResponseDto {
 

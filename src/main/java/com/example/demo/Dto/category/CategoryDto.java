@@ -1,5 +1,6 @@
-package com.example.demo.Dto;
+package com.example.demo.Dto.category;
 
+import com.example.demo.Dto.product.ProductDto;
 import com.example.demo.validations.UniqueCategoryName;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;

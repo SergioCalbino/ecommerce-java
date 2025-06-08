@@ -1,9 +1,8 @@
-package com.example.demo.Dto;
+package com.example.demo.Dto.cartItem;
 
 
-import com.example.demo.entities.ShoppingCart;
-
-import java.util.List;
+import com.example.demo.Dto.product.ProductDto;
+import com.example.demo.Dto.shoppingCart.ShoppingCartDto;
 
 public class CartItemDto {
 
@@ -11,17 +10,17 @@ public class CartItemDto {
     public CartItemDto(){}
 
 
-    public CartItemDto(Long id, ProductDto product, Integer quantity, ShoppingCart shoppingCart) {
-        this.id = id;
+    public CartItemDto(ProductDto product, Integer quantity, ShoppingCartDto shoppingCartDto) {
+
         this.product = product;
         this.quantity = quantity;
-        this.shoppingCart = shoppingCart;
+        this.shoppingCartDto = shoppingCartDto;
     }
 
     private Long id;
     private ProductDto product;
     private Integer quantity;
-    private ShoppingCart shoppingCart;
+    private ShoppingCartDto shoppingCartDto;
 
     public Long getId() {
         return id;
@@ -47,11 +46,11 @@ public class CartItemDto {
         this.quantity = quantity;
     }
 
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
+    public ShoppingCartDto getShoppingCartDto() {
+        return shoppingCartDto;
     }
 
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
+    public void setShoppingCartDto(ShoppingCartDto shoppingCartDto) {
+        this.shoppingCartDto = shoppingCartDto;
     }
 }

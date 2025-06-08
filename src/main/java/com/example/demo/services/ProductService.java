@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.Dto.ProductDto;
-import com.example.demo.Dto.ProductResponseDto;
+import com.example.demo.Dto.product.ProductDto;
+import com.example.demo.Dto.product.ProductResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

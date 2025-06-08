@@ -1,16 +1,15 @@
 package com.example.demo.controllers;
 
-import com.example.demo.Dto.CustomerDto;
-import com.example.demo.Dto.CustomerResponseDto;
+import com.example.demo.Dto.cartItem.RemoveItemDto;
+import com.example.demo.Dto.customer.AddToCartRequest;
+import com.example.demo.Dto.customer.CustomerCartDto;
+import com.example.demo.Dto.customer.CustomerDto;
+import com.example.demo.Dto.customer.CustomerResponseDto;
 import com.example.demo.herlpers.ApiResponse;
-import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
@@ -33,6 +32,4 @@ public class CustomerController {
         ));
 
     }
-
-
 }

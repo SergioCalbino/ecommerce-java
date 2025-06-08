@@ -1,15 +1,21 @@
 package com.example.demo.services;
 
-import com.example.demo.Dto.CustomerDto;
-import com.example.demo.Dto.CustomerResponseDto;
-import com.example.demo.entities.Customer;
-import com.example.demo.entities.Order;
-import com.example.demo.entities.ShoppingCart;
+import com.example.demo.Dto.cartItem.RemoveItemDto;
+import com.example.demo.Dto.customer.CustomerCartDto;
+import com.example.demo.Dto.customer.CustomerDto;
+import com.example.demo.Dto.customer.CustomerResponseDto;
+import com.example.demo.Dto.product.ProductDto;
+import com.example.demo.entities.*;
+import com.example.demo.exceptions.EmailAlreadyUsedException;
+import com.example.demo.exceptions.InsufficientStockException;
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.mappers.CustomerMapper;
 import com.example.demo.mappers.OrderMapper;
 import com.example.demo.mappers.ShoppingMapper;
 import com.example.demo.repositories.CustomerRepository;
+import com.example.demo.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -17,9 +23,13 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService{
 
     public final CustomerRepository customerRepository;
+    public final ProductRepository productRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, ProductRepository productRepository, PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
+        this.productRepository = productRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -28,10 +38,14 @@ public class CustomerServiceImpl implements CustomerService{
 
         // Creo el customer y le seteo los atributos
         Customer customer = new Customer();
+        if (customerRepository.existsByEmail(customerDto.getEmail())){
+            throw new EmailAlreadyUsedException("Email already exists");
+        }
         customer.setName(customerDto.getName());
         customer.setEmail(customerDto.getEmail());
         customer.setAddress(customerDto.getAddress());
-        customer.setPassword(customerDto.getPassword());
+        customer.setPassword(passwordEncoder.encode(customerDto.getPassword()));
+
 
         // Seteo orders si hay
         if (customerDto.getOrderDto() != null && !customerDto.getOrderDto().isEmpty()) {
@@ -55,5 +69,8 @@ public class CustomerServiceImpl implements CustomerService{
 
         return CustomerMapper.toDto(customer);
     }
+
+
+
 
 }

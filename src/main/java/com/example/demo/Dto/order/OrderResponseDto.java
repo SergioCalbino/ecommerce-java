@@ -1,5 +1,7 @@
-package com.example.demo.Dto;
+package com.example.demo.Dto.order;
 
+import com.example.demo.Dto.orderItem.OrderItemResponseDto;
+import com.example.demo.Dto.customer.CustomerResponseDto;
 import com.example.demo.entities.utilities.OrderState;
 
 import java.util.Date;
