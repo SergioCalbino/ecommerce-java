@@ -1,6 +1,6 @@
 package com.example.demo.mappers;
 
-import com.example.demo.Dto.CartItemResponseDto;
+import com.example.demo.Dto.cartItem.CartItemResponseDto;
 import com.example.demo.entities.CartItem;
 
 public class CartItemMapper {
@@ -9,9 +9,13 @@ public class CartItemMapper {
 
         CartItemResponseDto cartItemResponseDto = new CartItemResponseDto();
 
-        cartItemResponseDto.setShoppingCartResponseDto(ShoppingMapper.toDto(cartItem.getShoppingCart()));
+        //cartItemResponseDto.setShoppingCartResponseDto(ShoppingMapper.toDto(cartItem.getShoppingCart()));
+        //cartItemResponseDto.setShoppingCartId(cartItemResponseDto.getShoppingCartId());
+        cartItemResponseDto.setId(cartItem.getId());
         cartItemResponseDto.setQuantity(cartItem.getQuantity());
         cartItemResponseDto.setProduct(ProductMapper.toDto(cartItem.getProduct()));
+
+
 
 
         return cartItemResponseDto;

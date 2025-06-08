@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import com.example.demo.exceptions.EmailAlreadyUsedException;
+import com.example.demo.exceptions.InsufficientStockException;
 import com.example.demo.exceptions.NotFoundException;
+import com.example.demo.herlpers.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -29,7 +32,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException ex){
-        System.out.println("Capturó MethodArgumentNotValidException");
         Map<String, Object> body = new HashMap<>();
         Map<String, Object> errors = new HashMap<>();
 
@@ -48,7 +50,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> handleInvalidFormat(HttpMessageNotReadableException ex) {
-        System.out.println("Capturó HttpMessageNotReadableException");
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST.value());
@@ -57,4 +58,23 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(EmailAlreadyUsedException.class)
+    public ResponseEntity<?> handleEmailAlreadyUsedException(EmailAlreadyUsedException ex) {
+        // Retorna un estado 409 Conflict con el mensaje de error
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("error", "Error in email");
+        body.put("message", "Email already in use");
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InsufficientStockException.class)
+    public ResponseEntity<?> handleInsuficienteStockException(InsufficientStockException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), "Insufficient stock");
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+
 }

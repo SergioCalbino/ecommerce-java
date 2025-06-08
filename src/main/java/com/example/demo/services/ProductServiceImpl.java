@@ -2,9 +2,9 @@ package com.example.demo.services;
 
 import com.example.demo.repositories.CategoryRepository;
 import com.example.demo.entities.Category;
-import com.example.demo.Dto.ProductDto;
+import com.example.demo.Dto.product.ProductDto;
 import com.example.demo.mappers.ProductMapper;
-import com.example.demo.Dto.ProductResponseDto;
+import com.example.demo.Dto.product.ProductResponseDto;
 import com.example.demo.entities.Product;
 import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.repositories.ProductRepository;

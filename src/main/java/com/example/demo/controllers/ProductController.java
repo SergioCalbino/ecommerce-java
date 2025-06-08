@@ -1,8 +1,8 @@
 package com.example.demo.controllers;
 
 import com.example.demo.herlpers.ApiResponse;
-import com.example.demo.Dto.ProductDto;
-import com.example.demo.Dto.ProductResponseDto;
+import com.example.demo.Dto.product.ProductDto;
+import com.example.demo.Dto.product.ProductResponseDto;
 import com.example.demo.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;

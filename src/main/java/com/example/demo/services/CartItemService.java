@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.Dto.CartItemDto;
-import com.example.demo.Dto.CartItemResponseDto;
+import com.example.demo.Dto.cartItem.CartItemDto;
+import com.example.demo.Dto.cartItem.CartItemResponseDto;
 
 public interface CartItemService {
 
