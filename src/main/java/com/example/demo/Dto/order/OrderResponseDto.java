@@ -1,18 +1,21 @@
 package com.example.demo.Dto.order;
 
+import com.example.demo.Dto.customer.CustomerSummaryDto;
 import com.example.demo.Dto.orderItem.OrderItemResponseDto;
 import com.example.demo.Dto.customer.CustomerResponseDto;
 import com.example.demo.entities.utilities.OrderState;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 public class OrderResponseDto {
 
+
     public OrderResponseDto() {
     }
 
-    public OrderResponseDto(Date date, CustomerResponseDto customerResponseDto, List<OrderItemResponseDto> orderItemResponseDto, Double total, OrderState state) {
+    public OrderResponseDto(Date date, CustomerResponseDto customerResponseDto, List<OrderItemResponseDto> orderItemResponseDto, BigDecimal total, OrderState state) {
         this.date = date;
         this.customerResponseDto = customerResponseDto;
         this.orderItemResponseDto = orderItemResponseDto;
@@ -24,9 +27,10 @@ public class OrderResponseDto {
     private Date date;
     private CustomerResponseDto customerResponseDto;
     private List<OrderItemResponseDto> orderItemResponseDto;
-    private Double total;
+    private BigDecimal total;
     private OrderState state;
     private Long customerId;
+    private CustomerSummaryDto customerSummaryDto;
 
     public Long getCustomerId() {
         return customerId;
@@ -52,12 +56,12 @@ public class OrderResponseDto {
         this.date = date;
     }
 
-    public CustomerResponseDto getCustomerResponseDto() {
-        return customerResponseDto;
+    public CustomerSummaryDto getCustomerResponseDto() {
+        return customerSummaryDto;
     }
 
-    public void setCustomerResponseDto(CustomerResponseDto customerResponseDto) {
-        this.customerResponseDto = customerResponseDto;
+    public void setCustomerResponseDto(CustomerSummaryDto customerSummaryDto) {
+        this.customerSummaryDto = customerSummaryDto;
     }
 
     public List<OrderItemResponseDto> getOrderItemResponseDto() {
@@ -68,11 +72,11 @@ public class OrderResponseDto {
         this.orderItemResponseDto = orderItemResponseDto;
     }
 
-    public Double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 

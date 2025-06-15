@@ -4,14 +4,17 @@ import com.example.demo.Dto.order.OrderDto;
 import com.example.demo.Dto.order.OrderResponseDto;
 import com.example.demo.entities.Order;
 
+import java.util.ArrayList;
+
 public class OrderMapper {
 
     public static OrderResponseDto toDto(Order order) {
 
         OrderResponseDto orderResponseDto = new OrderResponseDto();
+        orderResponseDto.setId(order.getId());
         orderResponseDto.setDate(order.getDate());
         orderResponseDto.setCustomerResponseDto(
-                CustomerMapper.toDto(order.getCustomer())
+                CustomerMapper.toSummaryDto(order.getCustomer())
         );
         //mapeo los orderItem porque es una lista y pueden venir varios
         orderResponseDto.setOrderItemResponseDto(
@@ -44,11 +47,16 @@ public class OrderMapper {
         order.setDate(orderDto.getDate());
         order.setState(orderDto.getState());
         order.setTotal(orderDto.getTotal());
-        order.setOrderItems(orderDto.getOrderItemDto()
-                .stream()
-                .map((orderItem) -> OrderItemMapper.toEntity(orderItem))
-                .toList()
-        );
+        if (orderDto.getOrderItemDto() != null) {
+            order.setOrderItems(orderDto.getOrderItemDto()
+                    .stream()
+                    .map((orderItem) -> OrderItemMapper.toEntity(orderItem))
+                    .toList()
+            );
+        } else {
+            order.setOrderItems(new ArrayList<>());
+        }
+
 
 
         return order;

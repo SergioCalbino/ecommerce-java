@@ -52,7 +52,7 @@ public class CustomerResponseDto {
         return address;
     }
 
-    public void setAddres(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 

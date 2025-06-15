@@ -3,12 +3,14 @@ package com.example.demo.Dto.orderItem;
 import com.example.demo.Dto.order.OrderDto;
 import com.example.demo.Dto.product.ProductDto;
 
+import java.math.BigDecimal;
+
 public class OrderItemDto {
 
     public OrderItemDto() {
     }
 
-    public OrderItemDto(ProductDto productDto, OrderDto orderDto, Double unitPrice, Integer quantity) {
+    public OrderItemDto(ProductDto productDto, OrderDto orderDto, BigDecimal unitPrice, Integer quantity) {
         this.productDto = productDto;
         this.orderDto = orderDto;
         this.unitPrice = unitPrice;
@@ -18,7 +20,7 @@ public class OrderItemDto {
     private Long id;
     private ProductDto productDto;
     private OrderDto orderDto;
-    private Double unitPrice;
+    private BigDecimal unitPrice;
     private Integer quantity;
 
     public Long getId() {
@@ -45,11 +47,11 @@ public class OrderItemDto {
         this.orderDto = orderDto;
     }
 
-    public Double getUnitPrice() {
+    public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Double unitPrice) {
+    public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
