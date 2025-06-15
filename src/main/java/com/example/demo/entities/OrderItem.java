@@ -3,6 +3,8 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "order_items")
 public class OrderItem {
@@ -10,7 +12,7 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(Product product, Order order, Double unitPrice, Integer quantity) {
+    public OrderItem(Product product, Order order, BigDecimal unitPrice, Integer quantity) {
         this.product = product;
         this.order = order;
         this.unitPrice = unitPrice;
@@ -29,7 +31,7 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    private Double unitPrice;
+    private BigDecimal unitPrice;
 
     private Integer quantity;
 
@@ -49,11 +51,11 @@ public class OrderItem {
         this.order = order;
     }
 
-    public Double getUnitPrice() {
+    public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Double unitPrice) {
+    public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -63,5 +65,11 @@ public class OrderItem {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    // Metodo para caclcular el subtotal de cada orderItem
+    public BigDecimal subTotal(BigDecimal unitPrice, Integer quantity) {
+        BigDecimal quantityDecimal = BigDecimal.valueOf(quantity);
+        return unitPrice.multiply(quantityDecimal);
     }
 }

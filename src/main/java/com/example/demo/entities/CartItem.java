@@ -2,6 +2,9 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Entity
 @Table(name = "cart_items")
 public class CartItem {
@@ -62,5 +65,10 @@ public class CartItem {
 
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
+    }
+
+    public BigDecimal getSubtotal(){
+
+        return product.getPrice().multiply(BigDecimal.valueOf(quantity)).setScale(2, RoundingMode.HALF_UP);
     }
 }

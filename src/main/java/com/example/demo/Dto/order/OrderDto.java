@@ -4,6 +4,7 @@ import com.example.demo.Dto.orderItem.OrderItemDto;
 import com.example.demo.Dto.customer.CustomerDto;
 import com.example.demo.entities.utilities.OrderState;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class OrderDto {
     public OrderDto() {
     }
 
-    public OrderDto(Date date, CustomerDto customerDto, List<OrderItemDto> orderItemDto, Double total, OrderState state) {
+    public OrderDto(Date date, CustomerDto customerDto, List<OrderItemDto> orderItemDto, BigDecimal total, OrderState state) {
         this.date = date;
         this.customerDto = customerDto;
         this.orderItemDto = orderItemDto;
@@ -24,7 +25,7 @@ public class OrderDto {
     private Date date;
     private CustomerDto customerDto;
     private List<OrderItemDto> orderItemDto;
-    private Double total;
+    private BigDecimal total;
     private OrderState state;
 
     public Long getId() {
@@ -59,11 +60,11 @@ public class OrderDto {
         this.orderItemDto = orderItemDto;
     }
 
-    public Double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 

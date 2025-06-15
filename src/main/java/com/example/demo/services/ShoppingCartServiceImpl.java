@@ -55,6 +55,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
         for (CartItem item: shoppingCart.getCartItems()) {
             if (item.getProduct().getId().equals(product.getId())){
                 item.setQuantity(item.getQuantity() + quantity);
+                item.getSubtotal();
                 item.getProduct().setStock(item.getProduct().getStock() - quantity);
                 found = true;
                 break;

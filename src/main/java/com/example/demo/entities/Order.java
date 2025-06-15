@@ -3,6 +3,7 @@ package com.example.demo.entities;
 import com.example.demo.entities.utilities.OrderState;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,12 +16,20 @@ public class Order {
 
     }
 
-    public Order(Date date, Customer customer, List<OrderItem> orderItems, Double total, OrderState state) {
+    public Order(Date date, Customer customer, List<OrderItem> orderItems, BigDecimal total, OrderState state) {
         this.date = date;
         this.customer = customer;
         this.orderItems = orderItems;
         this.total = total;
         this.state = state;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Id
@@ -38,7 +47,7 @@ public class Order {
     private List<OrderItem> orderItems = new ArrayList<>();
 
 
-    private Double total;
+    private BigDecimal total;
 
     private OrderState state;
 
@@ -66,11 +75,11 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-    public Double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
