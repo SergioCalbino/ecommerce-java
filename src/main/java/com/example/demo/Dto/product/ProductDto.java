@@ -1,5 +1,6 @@
 package com.example.demo.Dto.product;
 
+import com.example.demo.validations.UniqueProductName;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ public class ProductDto {
 
     @NotBlank
     @Size(min = 4, max = 20)
+    @UniqueProductName(message = "Product name already exists")
     private String name;
 
     @NotNull

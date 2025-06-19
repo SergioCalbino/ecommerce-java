@@ -77,10 +77,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<?> handleIllegalState(IllegalStateException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), "Conflict");
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+
     @ExceptionHandler(ShoppingCartEmptyException.class)
     public ResponseEntity<?> handleShoppingCartEmptyException(ShoppingCartEmptyException ex){
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), "CART_EMPTY");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+
     }
 
 
