@@ -5,6 +5,7 @@ import com.example.demo.Dto.cartItem.RemoveItemDto;
 import com.example.demo.Dto.customer.AddToCartRequest;
 import com.example.demo.Dto.customer.CustomerCartDto;
 import com.example.demo.Dto.customer.CustomerResponseDto;
+import com.example.demo.Dto.shoppingCart.ShoppingCartResponseDto;
 import com.example.demo.herlpers.ApiResponse;
 import com.example.demo.services.CustomerService;
 import com.example.demo.services.ShoppingCartService;
@@ -25,7 +26,8 @@ public class ShoppingCartController {
 
     @PostMapping("/cart-item")
     public ResponseEntity<?> addToCart(@RequestBody AddToCartRequest request){
-        CustomerResponseDto customerResponseDto = shoppingCartService.addToShoppingCart(
+        ShoppingCartResponseDto
+                shoppingCartResponseDto = shoppingCartService.addToShoppingCart(
                 request.getCustomerDto(),
                 request.getProductDto(),
                 request.getQuantity()
@@ -33,7 +35,7 @@ public class ShoppingCartController {
         return ResponseEntity.ok(new ApiResponse<>(
                 200,
                 "Product add sucecesfully",
-                customerResponseDto
+                shoppingCartResponseDto
         ));
     }
 

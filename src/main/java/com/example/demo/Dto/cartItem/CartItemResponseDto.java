@@ -4,6 +4,8 @@ import com.example.demo.Dto.product.ProductResponseDto;
 import com.example.demo.Dto.shoppingCart.ShoppingCartResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.math.BigDecimal;
+
 public class CartItemResponseDto {
 
     public CartItemResponseDto() {
@@ -23,6 +25,8 @@ public class CartItemResponseDto {
     private ShoppingCartResponseDto shoppingCartResponseDto;
     @JsonIgnore
     private Integer shoppingCartId;
+
+    private BigDecimal subTotal;
 
     public Integer getShoppingCartId() {
         return shoppingCartId;
@@ -62,5 +66,14 @@ public class CartItemResponseDto {
 
     public void setShoppingCartResponseDto(ShoppingCartResponseDto shoppingCartResponseDto) {
         this.shoppingCartResponseDto = shoppingCartResponseDto;
+    }
+
+    public BigDecimal getSubTotal() {
+        return product.getPrice().multiply(BigDecimal.valueOf(quantity));
+    }
+
+    public void setSubTotal(BigDecimal subTotal) {
+        this.subTotal = subTotal;
+
     }
 }

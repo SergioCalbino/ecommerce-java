@@ -21,6 +21,7 @@ public class ShoppingMapper {
                         .toList()
         );
         shoppingResponseDto.setId(shoppingCart.getId());
+        shoppingResponseDto.getTotal();
 
         //shoppingResponseDto.setCustomerResponseDto(CustomerMapper.toDto(shoppingCart.getCustomer()));
        //

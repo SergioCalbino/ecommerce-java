@@ -14,9 +14,7 @@ public class CartItemMapper {
         cartItemResponseDto.setId(cartItem.getId());
         cartItemResponseDto.setQuantity(cartItem.getQuantity());
         cartItemResponseDto.setProduct(ProductMapper.toDto(cartItem.getProduct()));
-
-
-
+        cartItemResponseDto.setSubTotal(cartItem.getSubtotal());
 
         return cartItemResponseDto;
 

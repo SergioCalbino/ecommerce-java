@@ -1,17 +1,19 @@
 package com.example.demo.Dto.cartItem;
 
+import java.math.BigDecimal;
+
 public class CartItemSummaryDto {
 
     private Long productId;
     private String name;
     private Integer quantity;
     private Integer stock;
-    private Double price;
+    private BigDecimal price;
 
     public CartItemSummaryDto() {
     }
 
-    public CartItemSummaryDto(Long productId, String name, Integer quantity, Integer stock, Double price) {
+    public CartItemSummaryDto(Long productId, String name, Integer quantity, Integer stock, BigDecimal price) {
         this.productId = productId;
         this.name = name;
         this.quantity = quantity;
@@ -43,11 +45,11 @@ public class CartItemSummaryDto {
         this.stock = stock;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

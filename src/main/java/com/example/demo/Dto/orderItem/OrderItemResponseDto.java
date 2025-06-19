@@ -3,23 +3,26 @@ package com.example.demo.Dto.orderItem;
 import com.example.demo.Dto.order.OrderResponseDto;
 import com.example.demo.Dto.product.ProductResponseDto;
 
+import java.math.BigDecimal;
+
 public class OrderItemResponseDto {
 
     public OrderItemResponseDto() {
     }
 
-    public OrderItemResponseDto(ProductResponseDto productResponseDto, OrderResponseDto orderResponseDto, Double unitPrice, Integer quantity) {
+    public OrderItemResponseDto(ProductResponseDto productResponseDto, Long orderId, BigDecimal unitPrice, Integer quantity, BigDecimal total) {
         this.productResponseDto = productResponseDto;
-        this.orderResponseDto = orderResponseDto;
+        this.orderId = orderId;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
     }
 
     private Long id;
     private ProductResponseDto productResponseDto;
-    private OrderResponseDto orderResponseDto;
-    private Double unitPrice;
+    private Long orderId;
+    private BigDecimal unitPrice;
     private Integer quantity;
+    private BigDecimal total;
 
     public Long getId() {
         return id;
@@ -37,19 +40,20 @@ public class OrderItemResponseDto {
         this.productResponseDto = productResponseDto;
     }
 
-    public OrderResponseDto getOrderResponseDto() {
-        return orderResponseDto;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setOrderResponseDto(OrderResponseDto orderResponseDto) {
-        this.orderResponseDto = orderResponseDto;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public Double getUnitPrice() {
+
+    public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Double unitPrice) {
+    public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -60,4 +64,13 @@ public class OrderItemResponseDto {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+    public BigDecimal getSubtotal() {
+        return unitPrice.multiply(BigDecimal.valueOf(quantity));
+    }
+
+    public void setSubtotal(BigDecimal total) {
+        this.total = total;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -10,7 +11,7 @@ public class Product {
 
     public Product() {}
 
-    public Product(String name, Double price, String description, String image, int stock, Category category) {
+    public Product(String name, BigDecimal price, String description, String image, int stock, Category category) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -24,7 +25,7 @@ public class Product {
     private Long id;
 
     private String name;
-    private Double price;
+    private BigDecimal price;
     private String description;
     private String image;
     private int stock;
@@ -49,11 +50,11 @@ public class Product {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
