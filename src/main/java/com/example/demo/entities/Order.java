@@ -49,6 +49,7 @@ public class Order {
 
     private BigDecimal total;
 
+    @Enumerated(EnumType.STRING)
     private OrderState state;
 
     public Date getDate() {
@@ -76,11 +77,16 @@ public class Order {
     }
 
     public BigDecimal getTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (OrderItem item : this.orderItems) {
+            total = total.add(item.getSubtotal());
+        }
         return total;
     }
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+
     }
 
     public OrderState getState() {

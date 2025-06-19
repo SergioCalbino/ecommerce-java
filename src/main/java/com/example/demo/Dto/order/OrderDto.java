@@ -1,10 +1,12 @@
 package com.example.demo.Dto.order;
 
+import com.example.demo.Dto.cartItem.CartItemDto;
 import com.example.demo.Dto.orderItem.OrderItemDto;
 import com.example.demo.Dto.customer.CustomerDto;
 import com.example.demo.entities.utilities.OrderState;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class OrderDto {
     private Long id;
     private Date date;
     private CustomerDto customerDto;
-    private List<OrderItemDto> orderItemDto;
+    private List<OrderItemDto> orderItemDto = new ArrayList<>();
     private BigDecimal total;
     private OrderState state;
 
@@ -61,7 +63,13 @@ public class OrderDto {
     }
 
     public BigDecimal getTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (OrderItemDto item : this.orderItemDto) {
+            total = total.add(item.getSubtotal());
+        }
         return total;
+
+
     }
 
     public void setTotal(BigDecimal total) {
