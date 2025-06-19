@@ -53,6 +53,18 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Category with id " + id + " not found"));
 
+        // Verifico si ya existe otra categoría con el mismo nombre
+        boolean nameExist = categoryRepository.existsByNameIgnoreCase(categoryDto.getName());
+
+        // veo si el nuevo nombre es el mismo que ya tiene esta categoría
+        boolean sameName = category.getName().equalsIgnoreCase(categoryDto.getName());
+
+        // Si ya existe una categoría con ese nombre y no es esta misma, no pasa
+        if (nameExist && !sameName) {
+            throw new IllegalArgumentException("Category name already exists");
+        }
+
+
         category.setName(categoryDto.getName());
         Category updatedCategory = categoryRepository.save(category);
         return CategoryMapper.toUpdateDto(updatedCategory);
@@ -64,6 +76,10 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryResponseDto delete(Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Category with id " + id + " not found"));
+
+        if (!category.getProducts().isEmpty()){
+            throw new IllegalStateException("Category cannot be delete. It is associated with many products");
+        }
 
         CategoryResponseDto deletedCategory = CategoryMapper.toDeleteDto(category);
         categoryRepository.delete(category);
