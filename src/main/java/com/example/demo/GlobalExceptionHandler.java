@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.exceptions.EmailAlreadyUsedException;
 import com.example.demo.exceptions.InsufficientStockException;
 import com.example.demo.exceptions.NotFoundException;
+import com.example.demo.exceptions.ShoppingCartEmptyException;
 import com.example.demo.herlpers.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +74,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InsufficientStockException.class)
     public ResponseEntity<?> handleInsuficienteStockException(InsufficientStockException ex) {
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), "Insufficient stock");
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ShoppingCartEmptyException.class)
+    public ResponseEntity<?> handleShoppingCartEmptyException(ShoppingCartEmptyException ex){
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), "CART_EMPTY");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 

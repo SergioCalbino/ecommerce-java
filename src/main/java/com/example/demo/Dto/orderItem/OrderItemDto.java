@@ -10,11 +10,12 @@ public class OrderItemDto {
     public OrderItemDto() {
     }
 
-    public OrderItemDto(ProductDto productDto, OrderDto orderDto, BigDecimal unitPrice, Integer quantity) {
+    public OrderItemDto(ProductDto productDto, OrderDto orderDto, BigDecimal unitPrice, Integer quantity, BigDecimal total) {
         this.productDto = productDto;
         this.orderDto = orderDto;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
+        this.total = total;
     }
 
     private Long id;
@@ -22,6 +23,7 @@ public class OrderItemDto {
     private OrderDto orderDto;
     private BigDecimal unitPrice;
     private Integer quantity;
+    private BigDecimal total;
 
     public Long getId() {
         return id;
@@ -61,5 +63,13 @@ public class OrderItemDto {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public BigDecimal getSubtotal() {
+        return unitPrice.multiply(BigDecimal.valueOf(quantity));
+    }
+
+    public void setSubtotal(BigDecimal total) {
+        this.total = total;
     }
 }

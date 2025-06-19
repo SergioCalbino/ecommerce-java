@@ -4,13 +4,17 @@ import com.example.demo.Dto.customer.CustomerDto;
 import com.example.demo.Dto.order.OrderDto;
 import com.example.demo.Dto.order.OrderResponseDto;
 import com.example.demo.entities.*;
+import com.example.demo.entities.utilities.OrderState;
 import com.example.demo.exceptions.NotFoundException;
+import com.example.demo.exceptions.ShoppingCartEmptyException;
 import com.example.demo.mappers.OrderItemMapper;
 import com.example.demo.mappers.OrderMapper;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.OrderRepository;
+import com.example.demo.repositories.ShoppingCartRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -18,10 +22,12 @@ public class OrderServiceImpl implements OrderService{
 
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
+    private final ShoppingCartRepository shoppingCartRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository, CustomerRepository customerRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, CustomerRepository customerRepository, ShoppingCartRepository shoppingCartRepository) {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
+        this.shoppingCartRepository = shoppingCartRepository;
     }
 
 
@@ -39,6 +45,11 @@ public class OrderServiceImpl implements OrderService{
 
         ShoppingCart shoppingCart = customer.getShoppingCart();
 
+        if (shoppingCart.getCartItems().isEmpty()) {
+            throw new ShoppingCartEmptyException("Shopping Cart is empty");
+
+        }
+
         Order order = OrderMapper.toEntity(orderDto);
 
         order.setCustomer(customer);
@@ -48,8 +59,14 @@ public class OrderServiceImpl implements OrderService{
                 .map((orderItem -> OrderItemMapper.fromCartItem(orderItem, order)))
                 .toList();
 
+        order.setState(OrderState.PENDING);
         order.setOrderItems(orderItems);
+        order.setTotal(shoppingCart.getTotal());
         orderRepository.save(order);
+
+        shoppingCart.getCartItems().clear();
+        shoppingCart.setTotal(BigDecimal.ZERO);
+        shoppingCartRepository.save(shoppingCart);
 
         return OrderMapper.toDto(order);
 

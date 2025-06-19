@@ -1,9 +1,11 @@
 package com.example.demo.Dto.shoppingCart;
 
+import com.example.demo.Dto.cartItem.CartItemDto;
 import com.example.demo.Dto.customer.CustomerResponseDto;
 import com.example.demo.Dto.cartItem.CartItemResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ShoppingCartResponseDto {
@@ -23,6 +25,7 @@ public class ShoppingCartResponseDto {
     private CustomerResponseDto customerResponseDto;
     private List<CartItemResponseDto> cartItemResponseDto;
     private Long customerId;
+    private BigDecimal total;
 
     public Long getCustomerId(){
         return customerId;
@@ -54,5 +57,17 @@ public class ShoppingCartResponseDto {
 
     public void setCartItemResponseDto(List<CartItemResponseDto> cartItemResponseDto) {
         this.cartItemResponseDto = cartItemResponseDto;
+    }
+
+    public BigDecimal getTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (CartItemResponseDto itemDto: cartItemResponseDto) {
+            total = total.add(itemDto.getSubTotal());
+        }
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 }

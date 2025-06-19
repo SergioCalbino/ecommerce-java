@@ -12,11 +12,28 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(Product product, Order order, BigDecimal unitPrice, Integer quantity) {
+    public OrderItem(Product product, Order order, BigDecimal unitPrice, Integer quantity, BigDecimal total) {
         this.product = product;
         this.order = order;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
+        this.total = total;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
     @Id
@@ -34,6 +51,8 @@ public class OrderItem {
     private BigDecimal unitPrice;
 
     private Integer quantity;
+
+    private BigDecimal total;
 
     public Product getProduct() {
         return product;
@@ -68,8 +87,13 @@ public class OrderItem {
     }
 
     // Metodo para caclcular el subtotal de cada orderItem
-    public BigDecimal subTotal(BigDecimal unitPrice, Integer quantity) {
+    public BigDecimal getSubtotal() {
         BigDecimal quantityDecimal = BigDecimal.valueOf(quantity);
         return unitPrice.multiply(quantityDecimal);
+    }
+
+    public void setSubtotal(BigDecimal total) {
+        this.total = total;
+
     }
 }
