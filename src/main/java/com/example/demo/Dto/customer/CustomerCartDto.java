@@ -2,6 +2,8 @@ package com.example.demo.Dto.customer;
 
 import com.example.demo.Dto.shoppingCart.CartSummaryDto;
 
+import java.math.BigDecimal;
+
 public class CustomerCartDto {
 
     private String name;
@@ -9,16 +11,26 @@ public class CustomerCartDto {
     private String address;
     private Long id;
     private CartSummaryDto shoppingCart;
+    private BigDecimal total;
 
     public CustomerCartDto() {
     }
 
-    public CustomerCartDto(String name, String email, String address, Long id, CartSummaryDto shoppingCart) {
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public CustomerCartDto(String name, String email, String address, Long id, CartSummaryDto shoppingCart, BigDecimal total) {
         this.name = name;
         this.email = email;
         this.address = address;
         this.id = id;
         this.shoppingCart = shoppingCart;
+        this.total = total;
 
     }
 

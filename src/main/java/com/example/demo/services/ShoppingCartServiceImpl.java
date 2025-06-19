@@ -5,6 +5,7 @@ import com.example.demo.Dto.customer.CustomerCartDto;
 import com.example.demo.Dto.customer.CustomerDto;
 import com.example.demo.Dto.customer.CustomerResponseDto;
 import com.example.demo.Dto.product.ProductDto;
+import com.example.demo.Dto.shoppingCart.ShoppingCartResponseDto;
 import com.example.demo.entities.CartItem;
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.Product;
@@ -12,9 +13,14 @@ import com.example.demo.entities.ShoppingCart;
 import com.example.demo.exceptions.InsufficientStockException;
 import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.mappers.CustomerMapper;
+import com.example.demo.mappers.ShoppingMapper;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.ProductRepository;
+import com.example.demo.utils.UpdateTotal;
+import org.hibernate.sql.Update;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService{
@@ -29,7 +35,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     }
 
     @Override
-    public CustomerResponseDto addToShoppingCart(CustomerDto customerDto, ProductDto productDto, Integer quantity) {
+    public ShoppingCartResponseDto addToShoppingCart(CustomerDto customerDto, ProductDto productDto, Integer quantity) {
 
         if (productDto.getId() == null) {
             throw new IllegalArgumentException("Id Product can´t be null");
@@ -55,7 +61,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
         for (CartItem item: shoppingCart.getCartItems()) {
             if (item.getProduct().getId().equals(product.getId())){
                 item.setQuantity(item.getQuantity() + quantity);
-                item.getSubtotal();
+                shoppingCart.setTotal(shoppingCart.getTotal());
                 item.getProduct().setStock(item.getProduct().getStock() - quantity);
                 found = true;
                 break;
@@ -66,6 +72,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
             CartItem cartItem = new CartItem(product, quantity, shoppingCart);
 
             shoppingCart.getCartItems().add(cartItem);
+            shoppingCart.setTotal(shoppingCart.getTotal());
             product.setStock(product.getStock() - quantity);
         }
 
@@ -78,7 +85,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
         customer.setShoppingCart(shoppingCart);
         customerRepository.save(customer);
 
-        return CustomerMapper.toDto(customer);
+        //return CustomerMapper.toDto(customer);
+        return ShoppingMapper.toDto(shoppingCart);
 
     }
 
@@ -102,10 +110,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
         if (cartItem.getQuantity() > removeItemDto.getQuantity()) {
             cartItem.setQuantity(cartItem.getQuantity() - removeItemDto.getQuantity());
 
+
         } else {
             shoppingCart.getCartItems().remove(cartItem);
         }
         product.setStock(product.getStock() + removeItemDto.getQuantity());
+
+        //Muestra el total del carrito actualizado
+        UpdateTotal.updateTotal(shoppingCart);
+
 
         customerRepository.save(customer);
 

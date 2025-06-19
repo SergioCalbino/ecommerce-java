@@ -10,8 +10,10 @@ import com.example.demo.Dto.shoppingCart.CartSummaryDto;
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.Product;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CustomerMapper {
 
@@ -59,6 +61,7 @@ public class CustomerMapper {
 
     public static CustomerCartDto toCleanCartResponse(Customer customer) {
 
+
         List<CartItemSummaryDto> items = customer.getShoppingCart().getCartItems()
                 .stream()
                 .map(item -> {
@@ -73,12 +76,20 @@ public class CustomerMapper {
                     );
                 }).toList();
 
+        // Muestra el total luego de haber quidato items del carrito
+        BigDecimal total = customer.getShoppingCart().getCartItems().stream()
+                .map(item -> item.getSubtotal())
+                .reduce(BigDecimal.ZERO, (acumulator, subtotal) -> acumulator.add(subtotal));
+
+
         return new CustomerCartDto(
                 customer.getName(),
                 customer.getAddress(),
                 customer.getEmail(),
                 customer.getId(),
-                new CartSummaryDto(items)
+                new CartSummaryDto(items),
+                total
+
         );
 
 
