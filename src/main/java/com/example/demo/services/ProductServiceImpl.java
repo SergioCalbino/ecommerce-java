@@ -58,10 +58,6 @@ public class ProductServiceImpl implements ProductService {
        Product productSaved =  productRepository.save(product);
        return ProductMapper.toDto(productSaved);
 
-
-
-
-
     }
 
     @Override
@@ -72,6 +68,13 @@ public class ProductServiceImpl implements ProductService {
 
         Category categoryDb = categoryRepository.findById(productDto.getCategoryId())
                 .orElseThrow(() -> new NotFoundException("Category not found"));
+
+        boolean nameExists = productRepository.existsByNameIgnoreCase(productDto.getName());
+        boolean sameName = productDb.getName().equalsIgnoreCase(productDto.getName());
+
+        if (nameExists && !sameName) {
+            throw new IllegalArgumentException("Product name already exists");
+        }
 
         productDb.setName(productDto.getName());
         productDb.setImage(productDto.getImage());
