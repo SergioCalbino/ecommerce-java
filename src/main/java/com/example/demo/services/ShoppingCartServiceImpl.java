@@ -19,6 +19,7 @@ import com.example.demo.repositories.ProductRepository;
 import com.example.demo.utils.UpdateTotal;
 import org.hibernate.sql.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -123,6 +124,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
         customerRepository.save(customer);
 
         return CustomerMapper.toCleanCartResponse(customer);
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ShoppingCartResponseDto detailShoppinCart(Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Customer not found"));
+
+        ShoppingCart shoppingCart = customer.getShoppingCart();
+
+        return ShoppingMapper.toDto(shoppingCart);
 
     }
 }
