@@ -11,4 +11,5 @@ public interface ShoppingCartService {
 
     ShoppingCartResponseDto addToShoppingCart(CustomerDto customerDto, ProductDto productDto, Integer quantity);
     CustomerCartDto removeFromShoppingCart(RemoveItemDto removeItemDto);
+    ShoppingCartResponseDto detailShoppinCart(Long id);
 }

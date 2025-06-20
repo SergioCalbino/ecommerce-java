@@ -29,11 +29,7 @@ public class ShoppingMapper {
             shoppingResponseDto.setCustomerId(shoppingCart.getCustomer().getId());
         }
 
-
-
         return shoppingResponseDto;
-
-
 
     }
 

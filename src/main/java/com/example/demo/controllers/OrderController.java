@@ -8,10 +8,7 @@ import com.example.demo.herlpers.ApiResponse;
 import com.example.demo.services.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
@@ -35,6 +32,26 @@ public class OrderController {
                 orderResponseDto
         ));
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteOrder(@PathVariable Long id){
+        OrderResponseDto orderResponseDto = orderService.delete(id);
+        return ResponseEntity.ok(new ApiResponse<>(
+                200,
+                "Order was deleted",
+                orderResponseDto
+        ));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> showOrder(@PathVariable Long id){
+        OrderResponseDto orderResponseDto = orderService.detailOrder(id);
+        return ResponseEntity.ok(new ApiResponse<>(
+                200,
+                "Order detail",
+                orderResponseDto
+        ));
     }
 
 
