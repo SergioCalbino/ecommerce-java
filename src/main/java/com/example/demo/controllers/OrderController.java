@@ -1,11 +1,9 @@
 package com.example.demo.controllers;
 
-import com.example.demo.Dto.customer.CustomerDto;
-import com.example.demo.Dto.order.CreateOrderDto;
 import com.example.demo.Dto.order.OrderDto;
 import com.example.demo.Dto.order.OrderResponseDto;
 import com.example.demo.herlpers.ApiResponse;
-import com.example.demo.services.OrderService;
+import com.example.demo.interfaces.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

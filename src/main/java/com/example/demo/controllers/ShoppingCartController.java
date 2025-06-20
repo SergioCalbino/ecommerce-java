@@ -4,12 +4,10 @@ package com.example.demo.controllers;
 import com.example.demo.Dto.cartItem.RemoveItemDto;
 import com.example.demo.Dto.customer.AddToCartRequest;
 import com.example.demo.Dto.customer.CustomerCartDto;
-import com.example.demo.Dto.customer.CustomerDto;
-import com.example.demo.Dto.customer.CustomerResponseDto;
 import com.example.demo.Dto.shoppingCart.ShoppingCartResponseDto;
 import com.example.demo.herlpers.ApiResponse;
-import com.example.demo.services.CustomerService;
-import com.example.demo.services.ShoppingCartService;
+import com.example.demo.interfaces.CustomerService;
+import com.example.demo.interfaces.ShoppingCartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
