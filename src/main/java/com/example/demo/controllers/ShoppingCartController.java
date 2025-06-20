@@ -4,6 +4,7 @@ package com.example.demo.controllers;
 import com.example.demo.Dto.cartItem.RemoveItemDto;
 import com.example.demo.Dto.customer.AddToCartRequest;
 import com.example.demo.Dto.customer.CustomerCartDto;
+import com.example.demo.Dto.customer.CustomerDto;
 import com.example.demo.Dto.customer.CustomerResponseDto;
 import com.example.demo.Dto.shoppingCart.ShoppingCartResponseDto;
 import com.example.demo.herlpers.ApiResponse;
@@ -46,6 +47,16 @@ public class ShoppingCartController {
                 200,
                 "Product remove successfully",
                 customerResponseDto
+        ));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> showDetail(@PathVariable Long id){
+        ShoppingCartResponseDto shoppingCartResponseDto = shoppingCartService.detailShoppinCart(id);
+        return ResponseEntity.ok(new ApiResponse<>(
+                200,
+                "Shopping cart detail",
+                shoppingCartResponseDto
         ));
     }
 

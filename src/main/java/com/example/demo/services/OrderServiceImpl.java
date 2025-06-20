@@ -13,6 +13,7 @@ import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.OrderRepository;
 import com.example.demo.repositories.ShoppingCartRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -70,6 +71,26 @@ public class OrderServiceImpl implements OrderService{
 
         return OrderMapper.toDto(order);
 
+    }
+
+    @Override
+    @Transactional()
+    public OrderResponseDto delete(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Order not found"));
+
+       OrderResponseDto orderResponseDto = OrderMapper.toDto(order);
+       orderRepository.delete(order);
+       return orderResponseDto;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public OrderResponseDto detailOrder(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Order not found"));
+
+        return OrderMapper.toDto(order);
     }
 
 
