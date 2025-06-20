@@ -3,7 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.herlpers.ApiResponse;
 import com.example.demo.Dto.product.ProductDto;
 import com.example.demo.Dto.product.ProductResponseDto;
-import com.example.demo.services.ProductService;
+import com.example.demo.interfaces.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

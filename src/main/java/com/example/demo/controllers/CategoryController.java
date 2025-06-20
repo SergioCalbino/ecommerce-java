@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.services.CategoryService;
+import com.example.demo.interfaces.CategoryService;
 import com.example.demo.Dto.category.CategoryDto;
 import com.example.demo.Dto.category.CategoryResponseDto;
 import com.example.demo.herlpers.ApiResponse;
