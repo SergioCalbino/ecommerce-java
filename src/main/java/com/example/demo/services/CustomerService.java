@@ -40,6 +40,8 @@ public class CustomerService implements com.example.demo.interfaces.CustomerServ
         customer.setEmail(customerDto.getEmail());
         customer.setAddress(customerDto.getAddress());
         customer.setPassword(passwordEncoder.encode(customerDto.getPassword()));
+        customer.setTelephone(customerDto.getTelephone());
+        customer.setRole(customerDto.getRole());
 
 
         // Seteo orders si hay
