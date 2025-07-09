@@ -12,11 +12,13 @@ public class CustomerDto {
 
     public CustomerDto(){}
 
-    public CustomerDto(String name, String email, String password, String address, List<OrderDto> orderDto, ShoppingCartDto shoppingCartDto) {
+    public CustomerDto(String name, String email, String password, String address, String role, String telephone, List<OrderDto> orderDto, ShoppingCartDto shoppingCartDto) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.address = address;
+        this.role = role;
+        this.telephone = telephone;
         this.orderDto = orderDto;
         this.shoppingCartDto = shoppingCartDto;
     }
@@ -37,6 +39,13 @@ public class CustomerDto {
 
     @NotBlank
     private String address;
+
+
+    @NotBlank
+    private String role;
+
+    @NotBlank
+    private String telephone;
 
     private List<OrderDto> orderDto;
 
@@ -80,6 +89,22 @@ public class CustomerDto {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public List<OrderDto> getOrderDto() {
