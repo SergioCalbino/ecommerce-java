@@ -28,14 +28,14 @@ public class CustomerService implements com.example.demo.interfaces.CustomerServ
     }
 
 
+    // Creo el customer. Este metodo luego lo utilizo en la creacion comun y en la creacion con token.
     @Override
-    public CustomerResponseDto create(CustomerDto customerDto) {
-
-        // Creo el customer y le seteo los atributos
-        Customer customer = new Customer();
-        if (customerRepository.existsByEmail(customerDto.getEmail())){
+    public Customer createAndReturnEntity(CustomerDto customerDto) {
+        if (customerRepository.existsByEmail(customerDto.getEmail())) {
             throw new EmailAlreadyUsedException("Email already exists");
         }
+
+        Customer customer = new Customer();
         customer.setName(customerDto.getName());
         customer.setEmail(customerDto.getEmail());
         customer.setAddress(customerDto.getAddress());
@@ -43,8 +43,7 @@ public class CustomerService implements com.example.demo.interfaces.CustomerServ
         customer.setTelephone(customerDto.getTelephone());
         customer.setRole(customerDto.getRole());
 
-
-        // Seteo orders si hay
+        // Orders
         if (customerDto.getOrderDto() != null && !customerDto.getOrderDto().isEmpty()) {
             List<Order> orders = customerDto.getOrderDto()
                     .stream()
@@ -54,20 +53,22 @@ public class CustomerService implements com.example.demo.interfaces.CustomerServ
             customer.setOrders(orders);
         }
 
-        // Seteo shopping cart si hay
+        // ShoppingCart
         if (customerDto.getShoppingCartDto() != null) {
             ShoppingCart shoppingCart = ShoppingMapper.toEntity(customerDto.getShoppingCartDto());
             shoppingCart.setCustomer(customer);
             customer.setShoppingCart(shoppingCart);
         }
 
-        // Persisto solo el customer
-        customerRepository.save(customer);
-
-        return CustomerMapper.toDto(customer);
+        return customerRepository.save(customer);
     }
 
-
+    // 👉 Versión que devuelve el DTO para otras situaciones
+    @Override
+    public CustomerResponseDto create(CustomerDto customerDto) {
+        Customer customer = createAndReturnEntity(customerDto);
+        return CustomerMapper.toDto(customer);
+    }
 
 
 }

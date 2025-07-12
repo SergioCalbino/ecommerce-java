@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.exceptions.EmailAlreadyUsedException;
-import com.example.demo.exceptions.InsufficientStockException;
-import com.example.demo.exceptions.NotFoundException;
-import com.example.demo.exceptions.ShoppingCartEmptyException;
+import com.example.demo.exceptions.*;
 import com.example.demo.herlpers.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +8,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -89,6 +87,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleShoppingCartEmptyException(ShoppingCartEmptyException ex){
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), "CART_EMPTY");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<?> handleUnauthorizedException(UnauthorizedException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), "Unauthorized");
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
 
     }
 

@@ -8,6 +8,7 @@ import com.example.demo.entities.Customer;
 import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.security.JwtUtil;
+import com.example.demo.services.AuthService;
 import com.example.demo.services.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,37 +25,31 @@ public class AuthController {
     private final CustomerService customerService;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final AuthService authService;
 
-    public AuthController(CustomerRepository customerRepository, CustomerService customerService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil){
+    public AuthController(CustomerRepository customerRepository, CustomerService customerService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, AuthService authService){
         this.customerRepository = customerRepository;
         this.customerService = customerService;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
+        this.authService = authService;
     }
 
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponseDto> register(@RequestBody CustomerDto customerDto){
-        customerDto.setRole("CUSTOMER");
-        customerService.create(customerDto);
+        AuthResponseDto authResponseDto = authService.registerAndGenerateToken(customerDto);
 
-        Customer customer = customerRepository.findByEmail(customerDto.getEmail())
-                .orElseThrow(() -> new NotFoundException("User not found"));
 
-        String token = jwtUtil.generateToken(customer.getEmail(), customer.getRole());
-
-        return ResponseEntity.ok((new AuthResponseDto(token)));
+        return ResponseEntity.ok(authResponseDto);
 
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequestDto request){
-        Customer customer = customerRepository.findByEmail(request.getEmail()).orElse(null);
-        if (customer == null || !passwordEncoder.matches(request.getPassword(), customer.getPassword())) {
-            return ResponseEntity.status(401).body("Credenciales inválidas");
-        }
-        String token = jwtUtil.generateToken(customer.getEmail(), customer.getRole());
-        return ResponseEntity.ok(new AuthResponseDto(token));
+        AuthResponseDto authResponseDto = authService.login(request);
+
+        return ResponseEntity.ok(authResponseDto);
     }
 
 }

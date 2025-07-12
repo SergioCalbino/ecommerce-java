@@ -1,11 +1,13 @@
 package com.example.demo.Dto.auth;
 
-public class AuthRequestDto {
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+
+public class AuthRequest {
 
     private String email;
     private String password;
-
-
 
     public String getEmail() {
         return email;
