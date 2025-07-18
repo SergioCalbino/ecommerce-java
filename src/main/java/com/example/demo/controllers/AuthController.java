@@ -1,10 +1,7 @@
 package com.example.demo.controllers;
 
 
-import com.example.demo.Dto.auth.AuthRequestDto;
-import com.example.demo.Dto.auth.AuthResponseDto;
-import com.example.demo.Dto.auth.LoginResponseDto;
-import com.example.demo.Dto.auth.RefreshTokenResponseDto;
+import com.example.demo.Dto.auth.*;
 import com.example.demo.Dto.customer.CustomerDto;
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.RefreshToken;
@@ -14,6 +11,8 @@ import com.example.demo.security.JwtUtil;
 import com.example.demo.services.AuthService;
 import com.example.demo.services.CustomerService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,6 +61,16 @@ public class AuthController {
     public ResponseEntity<?> logout(@RequestBody RefreshTokenResponseDto refreshToken){
         authService.logout(refreshToken.getRefreshToken());
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
+
+        authService.changePassword(changePasswordRequest, email);
+        return ResponseEntity.ok("Password was change Successfullu");
     }
 
 }
