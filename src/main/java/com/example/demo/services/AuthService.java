@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.Dto.auth.AuthRequestDto;
 import com.example.demo.Dto.auth.AuthResponseDto;
+import com.example.demo.Dto.auth.ChangePasswordRequest;
 import com.example.demo.Dto.auth.LoginResponseDto;
 import com.example.demo.Dto.customer.CustomerDto;
 import com.example.demo.entities.Customer;
@@ -67,8 +68,6 @@ public class AuthService implements AuthInterface {
 
         return new LoginResponseDto(accessToken, refreshToken.getToken());
 
-
-
     }
 
     @Override
@@ -94,4 +93,26 @@ public class AuthService implements AuthInterface {
 
          refreshTokenRepository.delete(tokenStored);
     }
+
+
+
+    //Cambio de password estando logueado
+    @Override
+    public void changePassword(ChangePasswordRequest changePasswordRequest, String email) {
+        Customer customer = customerRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Customer not found"));
+
+        if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), customer.getPassword())) {
+            throw new IllegalArgumentException("Incorrect password");
+
+        }
+
+        String encodedNewPassword = passwordEncoder.encode(changePasswordRequest.getNewPassword());
+
+        customer.setPassword(encodedNewPassword);
+        customerRepository.save(customer);
+
+    }
+
+
 }
