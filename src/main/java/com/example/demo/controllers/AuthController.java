@@ -10,11 +10,16 @@ import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.security.JwtUtil;
 import com.example.demo.services.AuthService;
 import com.example.demo.services.CustomerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+
+import java.util.Collections;
+
 
 @RestController
 @RequestMapping("/api/auth")
@@ -48,6 +53,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody AuthRequestDto request){
         LoginResponseDto loginResponseDto = authService.login(request);
 
+
         return ResponseEntity.ok(loginResponseDto);
     }
 
@@ -69,8 +75,21 @@ public class AuthController {
         String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 
 
-        authService.changePassword(changePasswordRequest, email);
-        return ResponseEntity.ok("Password was change Successfullu");
+        try {
+            authService.changePassword(changePasswordRequest, email);
+            return ResponseEntity.ok("Password was change Successfullu");
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Collections.singletonMap("error", e.getMessage()));
+
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Collections.singletonMap("error", e.getMessage()));
+        }
+
+
+
     }
 
 }
