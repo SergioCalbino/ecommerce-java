@@ -64,6 +64,7 @@ public class AuthService implements AuthInterface {
        // String refreshToken = jwtUtil.generateRefreshToken(customer.getEmail());
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(customer.getId());
 
+
         System.out.println("Este es del login refrehs" + refreshToken);
 
         return new LoginResponseDto(accessToken, refreshToken.getToken());
@@ -118,6 +119,7 @@ public class AuthService implements AuthInterface {
         customerRepository.save(customer);
 
     }
+
 
 
 }
