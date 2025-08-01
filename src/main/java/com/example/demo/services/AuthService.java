@@ -102,9 +102,14 @@ public class AuthService implements AuthInterface {
         Customer customer = customerRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("Customer not found"));
 
+
         if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), customer.getPassword())) {
             throw new IllegalArgumentException("Incorrect password");
 
+        }
+
+        if (passwordEncoder.matches(changePasswordRequest.getNewPassword(), customer.getPassword())) {
+            throw new IllegalArgumentException("New password must be different from the current password");
         }
 
         String encodedNewPassword = passwordEncoder.encode(changePasswordRequest.getNewPassword());
