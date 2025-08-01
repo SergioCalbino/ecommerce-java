@@ -29,12 +29,24 @@ public class SpringSecurityConfig {
                 .cors(Customizer.withDefaults()) // mantiene tu configuración actual de CORS
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // login y register abiertos
-                        .requestMatchers(HttpMethod.POST,"/api/auth/change-password").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll() // GET público
-                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasAuthority("ADMIN") // POST solo admin
-                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAuthority("ADMIN")  // PUT solo admin
-                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("ADMIN")  // DELETE solo admin
+
+                        // Endpoints públicos sin token
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/forgot").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/reset").permitAll()
+
+                        // Cambiar contraseña requiere estar logueado
+                        .requestMatchers(HttpMethod.POST, "/api/auth/change-password").authenticated()
+
+                        // Productos
+                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("ADMIN")
+
+                        // Todo lo demás requiere autenticación
+
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex.accessDeniedHandler(accessDeniedHandler))

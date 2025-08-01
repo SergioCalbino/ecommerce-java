@@ -64,6 +64,7 @@ public class AuthService implements AuthInterface {
        // String refreshToken = jwtUtil.generateRefreshToken(customer.getEmail());
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(customer.getId());
 
+
         System.out.println("Este es del login refrehs" + refreshToken);
 
         return new LoginResponseDto(accessToken, refreshToken.getToken());
@@ -102,9 +103,14 @@ public class AuthService implements AuthInterface {
         Customer customer = customerRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("Customer not found"));
 
+
         if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), customer.getPassword())) {
             throw new IllegalArgumentException("Incorrect password");
 
+        }
+
+        if (passwordEncoder.matches(changePasswordRequest.getNewPassword(), customer.getPassword())) {
+            throw new IllegalArgumentException("New password must be different from the current password");
         }
 
         String encodedNewPassword = passwordEncoder.encode(changePasswordRequest.getNewPassword());
@@ -113,6 +119,7 @@ public class AuthService implements AuthInterface {
         customerRepository.save(customer);
 
     }
+
 
 
 }
