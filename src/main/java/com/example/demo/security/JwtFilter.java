@@ -26,6 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // Excluir rutas públicas
         String path = request.getServletPath();
+
         if (
                 path.startsWith("/api/auth/login") ||
                         path.startsWith("/api/auth/register") ||
@@ -33,6 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
                         path.startsWith("/api/auth/reset") ||
                         path.startsWith("/api/auth/refresh-token")
         ) {
+
 
             filterChain.doFilter(request, response);
             return;
