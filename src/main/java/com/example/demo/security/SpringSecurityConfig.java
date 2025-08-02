@@ -29,6 +29,7 @@ public class SpringSecurityConfig {
                 .cors(Customizer.withDefaults()) // mantiene tu configuración actual de CORS
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+
                         // Endpoints públicos sin token
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
@@ -45,6 +46,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("ADMIN")
 
                         // Todo lo demás requiere autenticación
+
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex.accessDeniedHandler(accessDeniedHandler))

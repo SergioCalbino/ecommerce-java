@@ -17,7 +17,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.Collections;
+
 
 @RestController
 @RequestMapping("/api/auth")
@@ -50,6 +52,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequestDto request){
         LoginResponseDto loginResponseDto = authService.login(request);
+
 
         return ResponseEntity.ok(loginResponseDto);
     }
@@ -84,6 +87,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(Collections.singletonMap("error", e.getMessage()));
         }
+
 
 
     }
