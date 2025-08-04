@@ -5,12 +5,14 @@ import com.example.demo.Dto.auth.AuthResponseDto;
 import com.example.demo.Dto.auth.ChangePasswordRequest;
 import com.example.demo.Dto.auth.LoginResponseDto;
 import com.example.demo.Dto.customer.CustomerDto;
+import com.example.demo.Dto.customer.CustomerResponseDto;
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.RefreshToken;
 import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.exceptions.UnauthorizedException;
 import com.example.demo.interfaces.AuthInterface;
 import com.example.demo.interfaces.RefreshTokenService;
+import com.example.demo.mappers.CustomerMapper;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.RefreshTokenRepository;
 import com.example.demo.security.JwtUtil;
@@ -48,7 +50,7 @@ public class AuthService implements AuthInterface {
 
         String token = jwtUtil.generateAccessToken(customer.getEmail(), customer.getRole());
 
-        return new AuthResponseDto(token);
+        return new AuthResponseDto(token, customer);
     }
 
     @Override
@@ -67,7 +69,8 @@ public class AuthService implements AuthInterface {
 
         System.out.println("Este es del login refrehs" + refreshToken);
 
-        return new LoginResponseDto(accessToken, refreshToken.getToken());
+        CustomerResponseDto customerDto = CustomerMapper.toDto(customer);
+        return new LoginResponseDto(accessToken, refreshToken.getToken(), customerDto);
 
     }
 
@@ -81,7 +84,8 @@ public class AuthService implements AuthInterface {
                             customer.getEmail(),
                             customer.getRole()
                     );
-                    return new LoginResponseDto(accessToken, refreshToken);
+                    CustomerResponseDto customerDto = CustomerMapper.toDto(customer);
+                    return new LoginResponseDto(accessToken, refreshToken, customerDto);
                 })
                 .orElseThrow(() -> new NotFoundException("Refresh token not found"));
     }
