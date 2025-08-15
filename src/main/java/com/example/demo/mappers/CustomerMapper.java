@@ -24,6 +24,7 @@ public class CustomerMapper {
         customerResponseDto.setAddress(customer.getAddress());
         customerResponseDto.setName(customer.getName());
         customerResponseDto.setEmail(customer.getEmail());
+        customerResponseDto.setTelephone(customer.getTelephone());
         //customerResponseDto.setPassword(customer.getPassword());
         customerResponseDto.setOrderResponseDto(
                 customer.getOrders()

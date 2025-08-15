@@ -4,6 +4,7 @@ import com.example.demo.Dto.customer.CustomerDto;
 import com.example.demo.Dto.customer.CustomerResponseDto;
 import com.example.demo.entities.*;
 import com.example.demo.exceptions.EmailAlreadyUsedException;
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.mappers.CustomerMapper;
 import com.example.demo.mappers.OrderMapper;
 import com.example.demo.mappers.ShoppingMapper;
@@ -61,6 +62,17 @@ public class CustomerService implements com.example.demo.interfaces.CustomerServ
         }
 
         return customerRepository.save(customer);
+    }
+
+    @Override
+    public CustomerResponseDto myProfile(String email) {
+        Customer customer = customerRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Customer not found"));
+
+        System.out.println("Estoy en el my profile");
+
+        return CustomerMapper.toDto(customer);
+
     }
 
     // 👉 Versión que devuelve el DTO para otras situaciones
