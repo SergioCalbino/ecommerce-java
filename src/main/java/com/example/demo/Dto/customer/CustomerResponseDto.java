@@ -12,6 +12,8 @@ public class CustomerResponseDto {
     private String email;
     private String password;
     private String address;
+    private String telephone;
+
 
     private List<OrderResponseDto> orderResponseDto;
     private ShoppingCartResponseDto shoppingResponseDto;
@@ -40,12 +42,12 @@ public class CustomerResponseDto {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getAddress() {

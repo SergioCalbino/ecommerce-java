@@ -6,6 +6,7 @@ import com.example.demo.herlpers.ApiResponse;
 import com.example.demo.interfaces.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,5 +29,12 @@ public class CustomerController {
                 customerResponseDto
         ));
 
+    }
+
+    @GetMapping("/my-profile")
+    public ResponseEntity<?> getUser(Authentication authentication) {
+        String email = authentication.getName();
+        CustomerResponseDto customer = customerService.myProfile(email);
+        return ResponseEntity.ok(customer);
     }
 }

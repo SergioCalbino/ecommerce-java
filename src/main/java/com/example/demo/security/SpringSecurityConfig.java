@@ -41,6 +41,7 @@ public class SpringSecurityConfig {
 
                         // Productos
                         .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/customer/my-profile").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/products/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("ADMIN")
