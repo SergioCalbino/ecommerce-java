@@ -9,5 +9,6 @@ public interface CustomerService {
 
     CustomerResponseDto create(CustomerDto customerDto);
     Customer createAndReturnEntity(CustomerDto customerDto);
+    CustomerResponseDto myProfile(String email);
 
 }
