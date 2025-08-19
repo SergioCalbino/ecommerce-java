@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/customer")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -37,4 +37,13 @@ public class CustomerController {
         CustomerResponseDto customer = customerService.myProfile(email);
         return ResponseEntity.ok(customer);
     }
+
+    @PostMapping("/update")
+        public ResponseEntity<?> updateData(Authentication authentication, @RequestBody CustomerDto customerDto) {
+        String email = authentication.getName();
+        CustomerResponseDto customer = customerService.editProfile(email, customerDto);
+
+        return ResponseEntity.ok(customer);
+    }
+
 }
