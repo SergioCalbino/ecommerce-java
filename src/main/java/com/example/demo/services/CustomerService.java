@@ -75,6 +75,39 @@ public class CustomerService implements com.example.demo.interfaces.CustomerServ
 
     }
 
+    @Override
+    public CustomerResponseDto editProfile(String email, CustomerDto customerDto) {
+        Customer customerDb = customerRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Customer not found"));
+
+        if (customerDto.getName() != null && !customerDto.getName().isBlank()) {
+            customerDb.setName(customerDto.getName());
+        }
+
+        if (customerDto.getEmail() != null && !customerDto.getEmail().isBlank()) {
+            customerDb.setEmail(customerDto.getEmail());
+        }
+
+        if (customerDto.getTelephone() != null && !customerDto.getTelephone().isBlank()) {
+            customerDb.setTelephone(customerDto.getTelephone());
+
+        }
+
+        if (customerDto.getAddress() != null && !customerDto.getAddress().isBlank()) {
+            customerDb.setAddress(customerDto.getAddress());
+
+        }
+
+
+
+        Customer customer = customerRepository.save(customerDb);
+
+
+
+        return CustomerMapper.toDto(customer);
+
+    }
+
     // 👉 Versión que devuelve el DTO para otras situaciones
     @Override
     public CustomerResponseDto create(CustomerDto customerDto) {
