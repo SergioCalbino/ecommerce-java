@@ -36,18 +36,20 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/forgot").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/reset").permitAll()
 
+                        // Endpoints del cliente que requieren autenticación
+                        // Ambos endpoints my-profile y edit-profile deben estar protegidos
+                        .requestMatchers("/api/customer/my-profile", "/api/customer/edit-profile").authenticated()
+
                         // Cambiar contraseña requiere estar logueado
                         .requestMatchers(HttpMethod.POST, "/api/auth/change-password").authenticated()
 
                         // Productos
                         .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/customer/my-profile").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/products/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("ADMIN")
 
                         // Todo lo demás requiere autenticación
-
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex.accessDeniedHandler(accessDeniedHandler))
