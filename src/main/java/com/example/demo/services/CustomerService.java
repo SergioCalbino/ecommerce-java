@@ -98,11 +98,7 @@ public class CustomerService implements com.example.demo.interfaces.CustomerServ
 
         }
 
-
-
         Customer customer = customerRepository.save(customerDb);
-
-
 
         return CustomerMapper.toDto(customer);
 
