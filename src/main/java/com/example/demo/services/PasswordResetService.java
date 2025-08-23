@@ -77,6 +77,7 @@ public class PasswordResetService implements com.example.demo.interfaces.Passwor
     public void updatePassword(String token, String newPassword) {
         PasswordAndResetToken findToken = passwordResetTokenRepository.findByToken(token)
                 .orElseThrow(() -> new NotFoundException("Token not found or expired"));
+        System.out.println("Este es el token " + findToken);
 
         if (findToken.getExpirationDate().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("Token expired");
