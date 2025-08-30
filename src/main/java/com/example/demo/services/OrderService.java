@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -93,5 +94,16 @@ public class OrderService implements com.example.demo.interfaces.OrderService {
         return OrderMapper.toDto(order);
     }
 
+    @Override
+    public List<OrderResponseDto> getOrders() {
+        List<Order> orders = orderRepository.findAll();
+
+        return orders.stream()
+                .map((order) -> OrderMapper.toDto(order))
+                .toList();
+    }
 
 }
+
+
+

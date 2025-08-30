@@ -19,6 +19,9 @@ import com.example.demo.utils.UpdateTotal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
 @Service
 public class ShoppingCartService implements com.example.demo.interfaces.ShoppingCartService {
 
@@ -46,7 +49,11 @@ public class ShoppingCartService implements com.example.demo.interfaces.Shopping
 
         ShoppingCart shoppingCart = customer.getShoppingCart();
         if (shoppingCart == null) {
-            throw new IllegalStateException("Cart cant be null");
+            shoppingCart = new ShoppingCart();
+            shoppingCart.setCustomer(customer);
+            shoppingCart.setCartItems(new ArrayList<>());
+            shoppingCart.setTotal(BigDecimal.ZERO);
+            customer.setShoppingCart(shoppingCart);
         }
 
         if (product.getStock() < quantity) {
