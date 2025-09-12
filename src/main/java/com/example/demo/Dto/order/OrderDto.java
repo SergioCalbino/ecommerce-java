@@ -83,4 +83,16 @@ public class OrderDto {
     public void setState(OrderState state) {
         this.state = state;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDto{" +
+                "id=" + id +
+                ", date=" + date +
+                ", customerDto=" + customerDto +
+                ", orderItemDto=" + orderItemDto +
+                ", total=" + total +
+                ", state=" + state +
+                '}';
+    }
 }

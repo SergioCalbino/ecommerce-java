@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,6 +37,8 @@ public class OrderService implements com.example.demo.interfaces.OrderService {
     @Override
     public OrderResponseDto create(OrderDto orderDto) {
 
+        System.out.println("Printenado la orderDto que llega del front " + orderDto);
+
         CustomerDto customerDto = orderDto.getCustomerDto();
 
         if (customerDto == null) {
@@ -47,14 +50,19 @@ public class OrderService implements com.example.demo.interfaces.OrderService {
 
         ShoppingCart shoppingCart = customer.getShoppingCart();
 
+        System.out.println("Printeando customer con shopping cart " + customer.getShoppingCart());
+
         if (shoppingCart.getCartItems().isEmpty()) {
             throw new ShoppingCartEmptyException("Shopping Cart is empty");
 
         }
 
-        Order order = OrderMapper.toEntity(orderDto);
-
+        //Creo la orden vacia
+        Order order = new Order();
         order.setCustomer(customer);
+        order.setState(OrderState.PENDING);
+        order.setTotal(shoppingCart.getTotal());
+        order.setDate(new Date());
 
         List<OrderItem> orderItems = shoppingCart.getCartItems()
                 .stream()
