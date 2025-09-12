@@ -70,4 +70,14 @@ public class ShoppingCart {
     public void setTotal(BigDecimal total) {
         this.total = total;
     }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart{" +
+                "id=" + id +
+                ", total=" + total +
+                ", cartItems=" + cartItems.size() +
+                '}';
+    }
+
 }

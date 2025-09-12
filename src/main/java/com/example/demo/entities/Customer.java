@@ -114,4 +114,15 @@ public class Customer {
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", shoppingCartId=" + (shoppingCart != null ? shoppingCart.getId() : null) +
+                '}';
+    }
+
 }
