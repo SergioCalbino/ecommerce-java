@@ -12,6 +12,8 @@ import com.example.demo.mappers.OrderMapper;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.OrderRepository;
 import com.example.demo.repositories.ShoppingCartRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -102,6 +104,7 @@ public class OrderService implements com.example.demo.interfaces.OrderService {
         return OrderMapper.toDto(order);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<OrderResponseDto> getOrders() {
         List<Order> orders = orderRepository.findAll();
@@ -110,6 +113,16 @@ public class OrderService implements com.example.demo.interfaces.OrderService {
                 .map((order) -> OrderMapper.toDto(order))
                 .toList();
     }
+
+
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<OrderResponseDto> findAll(Pageable pageable) {
+        Page<Order> ordersPage = orderRepository.findAll( pageable);
+        return ordersPage.map(OrderMapper::toDto);
+    }
+
 
 }
 
