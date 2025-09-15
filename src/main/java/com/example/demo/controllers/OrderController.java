@@ -4,6 +4,10 @@ import com.example.demo.Dto.order.OrderDto;
 import com.example.demo.Dto.order.OrderResponseDto;
 import com.example.demo.herlpers.ApiResponse;
 import com.example.demo.interfaces.OrderService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +62,16 @@ public class OrderController {
     public ResponseEntity<List<OrderResponseDto>> getAllOrders() {
         List<OrderResponseDto> orders = orderService.getOrders();
         return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("orders-paginated")
+    public ResponseEntity<?> list(@PageableDefault(page = 0, size = 5, sort = "date", direction = Sort.Direction.ASC)Pageable pageable) {
+        Page<OrderResponseDto> orderResponseDtoList = orderService.findAll(pageable);
+        if (orderResponseDtoList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(orderResponseDtoList);
     }
 
 
