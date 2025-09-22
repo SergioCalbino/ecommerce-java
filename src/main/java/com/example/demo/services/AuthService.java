@@ -85,7 +85,7 @@ public class AuthService implements AuthInterface {
                             customer.getRole()
                     );
                     CustomerResponseDto customerDto = CustomerMapper.toDto(customer);
-                    return new LoginResponseDto(accessToken, refreshToken, customerDto);
+                    return new LoginResponseDto(accessToken, refreshToken1.getToken(), customerDto);
                 })
                 .orElseThrow(() -> new NotFoundException("Refresh token not found"));
     }
