@@ -35,6 +35,8 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/forgot").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/reset").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
+
 
                         // Endpoints del cliente que requieren autenticación
                         // Ambos endpoints my-profile y edit-profile deben estar protegidos
