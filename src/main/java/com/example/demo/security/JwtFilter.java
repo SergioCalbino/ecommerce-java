@@ -32,7 +32,9 @@ public class JwtFilter extends OncePerRequestFilter {
                         path.startsWith("/api/auth/register") ||
                         path.startsWith("/api/auth/forgot") ||
                         path.startsWith("/api/auth/reset") ||
-                        path.startsWith("/api/auth/refresh-token")
+                        path.startsWith("/api/auth/refresh-token") ||
+                        path.startsWith("/api/auth/refresh")
+
         ) {
 
 
