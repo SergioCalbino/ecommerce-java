@@ -26,6 +26,7 @@ public class CloudinaryController {
             String imageUrl = cloudinaryService.uploadImage(file);
             return ResponseEntity.ok(Map.of("imageUrl", imageUrl));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("message", "Error uploading image", "error", e.getMessage()));
         }
