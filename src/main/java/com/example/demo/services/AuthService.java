@@ -79,6 +79,7 @@ public class AuthService implements AuthInterface {
         return refreshTokenService.findByToken(refreshToken)
                 .map((refreshToken1 -> refreshTokenService.verifyExpiration(refreshToken1)))
                 .map(refreshToken1 -> {
+                    System.out.println("refresh token" + refreshToken1);
                     Customer customer = refreshToken1.getCustomer();
                     String accessToken = jwtUtil.generateAccessToken(
                             customer.getEmail(),
