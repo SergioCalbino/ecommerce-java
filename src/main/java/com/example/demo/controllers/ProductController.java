@@ -27,8 +27,9 @@ public class ProductController {
 
     @GetMapping("")
     public ResponseEntity<?> list(
+            @RequestParam(name = "name", required = false) String name,
             @PageableDefault(page = 0, size = 5, sort = "name", direction = Sort.Direction.ASC)Pageable pageable) {
-        Page<ProductResponseDto> productResponseDtoList = productService.findAll(pageable);
+        Page<ProductResponseDto> productResponseDtoList = productService.findAll(name, pageable);
         if (productResponseDtoList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
@@ -71,7 +72,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/search")
+   /* @GetMapping("/search")
     public ResponseEntity<?> searchProduct(@RequestParam String name){
         ProductResponseDto productToSearch = productService.findByName(name);
         return ResponseEntity.ok(new ApiResponse<>(
@@ -80,7 +81,7 @@ public class ProductController {
                 productToSearch
 
         ));
-    }
+    } */
 
 
 }

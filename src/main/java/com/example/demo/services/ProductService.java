@@ -29,9 +29,18 @@ public class ProductService implements com.example.demo.interfaces.ProductServic
 
     @Transactional(readOnly = true)
     @Override
-    public Page<ProductResponseDto> findAll(Pageable pageable) {
-       Page<Product> productPage = productRepository.findAll(pageable);
-       return productPage.map(product -> ProductMapper.toDto(product));
+    public Page<ProductResponseDto> findAll(String name, Pageable pageable) {
+        Page<Product> productPage;
+        if (name != null && !name.trim().isEmpty()) {
+            productPage = productRepository.findByNameContainingIgnoreCase(name, pageable);
+
+
+        } else {
+            productPage = productRepository.findAll(pageable);
+
+        }
+
+        return productPage.map(product -> ProductMapper.toDto(product));
     }
 
     @Transactional(readOnly = true)

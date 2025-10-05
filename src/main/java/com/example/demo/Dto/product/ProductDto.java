@@ -12,7 +12,7 @@ public class ProductDto {
     private Long id;
 
     @NotBlank
-    @Size(min = 4, max = 20)
+    @Size(min = 4, max = 40)
     @UniqueProductName(message = "Product name already exists")
     private String name;
 
