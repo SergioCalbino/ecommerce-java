@@ -8,11 +8,21 @@ import java.util.List;
 public class CustomerResponseDto {
 
     private Long id;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     private String name;
     private String email;
     private String password;
     private String address;
     private String telephone;
+    private String role;
 
 
     private List<OrderResponseDto> orderResponseDto;
