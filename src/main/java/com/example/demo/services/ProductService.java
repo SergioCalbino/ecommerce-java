@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.Dto.product.ProductUpdateDto;
 import com.example.demo.repositories.CategoryRepository;
 import com.example.demo.entities.Category;
 import com.example.demo.Dto.product.ProductDto;
@@ -71,17 +72,19 @@ public class ProductService implements com.example.demo.interfaces.ProductServic
 
     @Override
     @Transactional
-    public ProductResponseDto update(Long id, ProductDto productDto) {
+    public ProductResponseDto update(Long id, ProductUpdateDto productDto) {
         Product productDb = productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Product not found"));
 
         Category categoryDb = categoryRepository.findById(productDto.getCategoryId())
                 .orElseThrow(() -> new NotFoundException("Category not found"));
 
-        boolean nameExists = productRepository.existsByNameIgnoreCase(productDto.getName());
-        boolean sameName = productDb.getName().equalsIgnoreCase(productDto.getName());
+       // boolean nameExists = productRepository.existsByNameIgnoreCase(productDto.getName());
+        boolean nameExists = productRepository.existsByNameIgnoreCaseAndIdNot(productDto.getName(), id);
+        System.out.println("Quiero ver que me imprime el nameexisti" + nameExists);
+        //boolean sameName = productDb.getName().equalsIgnoreCase(productDto.getName());
 
-        if (nameExists && !sameName) {
+        if (nameExists) {
             throw new IllegalArgumentException("Product name already exists");
         }
 
