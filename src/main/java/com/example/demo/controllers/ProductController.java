@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.Dto.product.ProductUpdateDto;
 import com.example.demo.herlpers.ApiResponse;
 import com.example.demo.Dto.product.ProductDto;
 import com.example.demo.Dto.product.ProductResponseDto;
@@ -56,7 +57,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update( @PathVariable Long id, @Valid @RequestBody ProductDto productDto) {
+    public ResponseEntity<?> update( @PathVariable Long id, @Valid @RequestBody ProductUpdateDto productDto) {
         ProductResponseDto productResponseDto = productService.update(id, productDto);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(
                 200,
