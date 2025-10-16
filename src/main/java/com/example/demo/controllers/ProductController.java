@@ -26,11 +26,23 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("")
+    @GetMapping("/admin")
     public ResponseEntity<?> list(
             @RequestParam(name = "name", required = false) String name,
             @PageableDefault(page = 0, size = 5, sort = "name", direction = Sort.Direction.ASC)Pageable pageable) {
         Page<ProductResponseDto> productResponseDtoList = productService.findAll(name, pageable);
+        if (productResponseDtoList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(productResponseDtoList);
+    }
+
+    @GetMapping("/customer")
+    public ResponseEntity<?> listCustomer(
+            @RequestParam(name = "name", required = false) String name,
+            @PageableDefault(page = 0, size = 5, sort = "name", direction = Sort.Direction.ASC)Pageable pageable) {
+        Page<ProductResponseDto> productResponseDtoList = productService.findAllActive(name, pageable);
         if (productResponseDtoList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
@@ -72,6 +84,8 @@ public class ProductController {
         return ResponseEntity.noContent().build();
 
     }
+
+    // Hacer un controler quye permita reactivar los propductos
 
    /* @GetMapping("/search")
     public ResponseEntity<?> searchProduct(@RequestParam String name){

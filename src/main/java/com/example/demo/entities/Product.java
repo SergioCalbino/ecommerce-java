@@ -3,7 +3,6 @@ package com.example.demo.entities;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -11,13 +10,15 @@ public class Product {
 
     public Product() {}
 
-    public Product(String name, BigDecimal price, String description, String image, int stock, Category category) {
+    public Product(String name, BigDecimal price, String description, String image, int stock, Category category, boolean isActive) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.image = image;
         this.stock = stock;
         this.category = category;
+        this.isActive = isActive;
+
     }
 
     @Id
@@ -33,6 +34,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive = true;
 
     public Long getId() {
         return id;
@@ -88,5 +92,13 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 }
