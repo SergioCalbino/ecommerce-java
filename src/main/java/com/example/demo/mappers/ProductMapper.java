@@ -19,6 +19,23 @@ public class ProductMapper {
         dto.setCategoryId(product.getCategory().getId());
         dto.setCategoryName(product.getCategory().getName());
 
+        dto.setIsActive(product.isActive());
+
+        return dto;
+    }
+
+    public static ProductResponseDto toDtoCustomer(Product product) {
+        ProductResponseDto dto = new ProductResponseDto();
+        dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setPrice(product.getPrice());
+        dto.setDescription(product.getDescription());
+        dto.setImage(product.getImage());
+        dto.setStock(product.getStock());
+        dto.setCategoryId(product.getCategory().getId());
+        dto.setCategoryName(product.getCategory().getName());
+        dto.setIsActive(product.isActive());
+
         return dto;
     }
 

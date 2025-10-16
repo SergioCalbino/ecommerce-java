@@ -33,6 +33,8 @@ public class ProductDto {
 
     private Long categoryId;
 
+    private boolean isActive;
+
     public Long getId() {
         return id;
     }
@@ -87,5 +89,13 @@ public class ProductDto {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 }

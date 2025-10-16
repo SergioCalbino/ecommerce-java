@@ -28,6 +28,7 @@ public class ProductService implements com.example.demo.interfaces.ProductServic
     }
 
 
+    //Este es para los admin porque trae absolutamente todo
     @Transactional(readOnly = true)
     @Override
     public Page<ProductResponseDto> findAll(String name, Pageable pageable) {
@@ -43,6 +44,22 @@ public class ProductService implements com.example.demo.interfaces.ProductServic
 
         return productPage.map(product -> ProductMapper.toDto(product));
     }
+
+    //Este es el findAll para los clientes
+    @Override
+    public Page<ProductResponseDto> findAllActive(String name, Pageable pageable) {
+        Page<Product> productPage;
+        if (name != null && !name.trim().isEmpty()) {
+            productPage = productRepository.findByNameContainingIgnoreCaseAndIsActiveTrue(name, pageable);
+        } else {
+            productPage = productRepository.findByIsActiveTrue(pageable);
+        }
+
+        return productPage.map(ProductMapper::toDto);
+    }
+
+
+
 
     @Transactional(readOnly = true)
     @Override
@@ -65,6 +82,7 @@ public class ProductService implements com.example.demo.interfaces.ProductServic
 
         //Guardo lo que me llega del body
        Product product = ProductMapper.fromDto(productDto, categoryOptional);
+       product.setIsActive(true);
        Product productSaved =  productRepository.save(product);
        return ProductMapper.toDto(productSaved);
 
@@ -102,15 +120,17 @@ public class ProductService implements com.example.demo.interfaces.ProductServic
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public ProductResponseDto delete(Long id) {
+    @Transactional
+    public void delete(Long id) {
 
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Product with id " + id + "not found"));
 
-        ProductResponseDto productDeleted = ProductMapper.toDto(product);
-        productRepository.delete(product);
-        return productDeleted;
+       // ProductResponseDto productDeleted = ProductMapper.toDto(product);
+       // productRepository.delete(product);
+        product.setIsActive(false);
+        productRepository.save(product);
+        //return productDeleted;
     }
 
     @Override
@@ -122,4 +142,6 @@ public class ProductService implements com.example.demo.interfaces.ProductServic
         return ProductMapper.toDto(productSearch);
 
     }
+
+    //Hacer el service que ractive los productos para el admin
 }
