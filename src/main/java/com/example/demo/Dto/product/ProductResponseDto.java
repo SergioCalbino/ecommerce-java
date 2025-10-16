@@ -11,6 +11,7 @@ public class ProductResponseDto {
     private Integer stock;
     private Long categoryId;
     private String categoryName;
+    private boolean isActive;
 
     public String getCategoryName() {
         return categoryName;
@@ -74,5 +75,13 @@ public class ProductResponseDto {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 }
