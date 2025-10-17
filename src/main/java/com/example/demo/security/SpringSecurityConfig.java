@@ -50,6 +50,8 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/products/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/products/*/reactivate").hasAuthority("ADMIN")
+
 
                         //Categorias
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
@@ -80,7 +82,7 @@ public class SpringSecurityConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Para todas las rutas
                         .allowedOrigins("http://localhost:5173") // Origen de tu frontend
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos permitidos
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS") // Métodos permitidos
                         .allowedHeaders("*")
                         .allowCredentials(true);
             }
