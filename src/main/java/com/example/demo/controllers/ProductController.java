@@ -86,6 +86,11 @@ public class ProductController {
     }
 
     // Hacer un controler quye permita reactivar los propductos
+    @PatchMapping("/{id}/reactivate")
+    public ResponseEntity<?> reactivate(@PathVariable Long id) {
+        productService.reActivate(id);
+        return ResponseEntity.ok().build();
+    }
 
    /* @GetMapping("/search")
     public ResponseEntity<?> searchProduct(@RequestParam String name){
