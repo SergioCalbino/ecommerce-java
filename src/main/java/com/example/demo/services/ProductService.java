@@ -143,5 +143,15 @@ public class ProductService implements com.example.demo.interfaces.ProductServic
 
     }
 
+    @Override
+    public void reActivate(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Product not fond"));
+        product.setIsActive(true);
+
+        productRepository.save(product);
+    }
+
     //Hacer el service que ractive los productos para el admin
+
 }
