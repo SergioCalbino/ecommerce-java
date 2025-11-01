@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class PaymentService {
 
     @PostConstruct
     public void init() {
-        MercadoPagoConfig.setAccessToken(mercadoPagoConfig.getAccesToken());
+        MercadoPagoConfig.setAccessToken(mercadoPagoConfig.getAccessToken());
 
     }
 
@@ -58,11 +60,12 @@ public class PaymentService {
         try {
             List<PreferenceItemRequest> preferenceItems = new ArrayList<>();
             for (PreferenceItemDto itemDto: item) {
+                BigDecimal formattedPrice = itemDto.getUnitPrice().setScale(2, RoundingMode.HALF_UP);
                 preferenceItems.add(
                         PreferenceItemRequest.builder()
                                 .title(itemDto.getTitle())
                                 .quantity(itemDto.getQuantity())
-                                .unitPrice(itemDto.getUnitPrice())
+                                .unitPrice(formattedPrice)
                                 .currencyId("ARS")
                                 .build()
                 );
@@ -76,7 +79,7 @@ public class PaymentService {
             PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                     .items(preferenceItems)
                     .backUrls(backUrls)
-                    .autoReturn("approved")
+                   // .autoReturn("approved")
                     .build();
 
             PreferenceClient client = new PreferenceClient();
@@ -84,11 +87,15 @@ public class PaymentService {
 
             return preference.getId();
 
-        } catch (MPException | MPApiException e) {
+        } catch (MPApiException e) {
             System.out.println("Error to create payment preference: " +  e.getMessage());
-            e.printStackTrace();
+            System.err.println("Status Code: " + e.getStatusCode());
+            System.err.println("Response Body: " + e.getApiResponse().getContent());
             throw new RuntimeException("Error to communicate with Mercado Pago: " + e.getMessage());
 
+        } catch (MPException e) {
+            System.out.println("Error del sdk: " + e.getMessage());
+            throw new RuntimeException(e);
         }
 
 

@@ -1,6 +1,5 @@
 package com.example.demo.mercadopago;
 
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,13 +7,14 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "mercadopago")
 public class AppConfig {
 
-    private String accesToken;
+    private String accessToken;
 
-    public String getAccesToken() {
-        return accesToken;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setAccesToken(String accesToken) {
-        this.accesToken = accesToken;
+    // El nombre del método corregido con dos 's'
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }
