@@ -11,5 +11,5 @@ public interface CustomerService {
     Customer createAndReturnEntity(CustomerDto customerDto);
     CustomerResponseDto myProfile(String email);
     CustomerResponseDto editProfile(String email, CustomerDto customerDto);
-
+    Customer getCustomerByEmail(String email);
 }

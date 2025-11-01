@@ -59,6 +59,11 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/categories/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/categories/**").hasAuthority("ADMIN")
 
+                        //Mercado Pago
+                        .requestMatchers(HttpMethod.POST, "/api/payments/create-preference").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/payments/process-payment").authenticated()
+
+
 
 
 

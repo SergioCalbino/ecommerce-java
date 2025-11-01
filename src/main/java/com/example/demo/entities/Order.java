@@ -16,12 +16,13 @@ public class Order {
 
     }
 
-    public Order(Date date, Customer customer, List<OrderItem> orderItems, BigDecimal total, OrderState state) {
+    public Order(Date date, Customer customer, List<OrderItem> orderItems, BigDecimal total, OrderState state, String paymentId) {
         this.date = date;
         this.customer = customer;
         this.orderItems = orderItems;
         this.total = total;
         this.state = state;
+        this.paymentId = paymentId;
     }
 
     public Long getId() {
@@ -30,6 +31,14 @@ public class Order {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
     }
 
     @Id
@@ -51,6 +60,8 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderState state;
+
+    private String paymentId;
 
     public Date getDate() {
         return date;

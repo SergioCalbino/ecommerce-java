@@ -37,24 +37,11 @@ public class OrderService implements com.example.demo.interfaces.OrderService {
 
 
     @Override
-    public OrderResponseDto create(OrderDto orderDto) {
-
-        System.out.println("Printenado la orderDto que llega del front " + orderDto);
-
-        CustomerDto customerDto = orderDto.getCustomerDto();
-
-        if (customerDto == null) {
-            throw new IllegalArgumentException("Customer not found");
-        }
-
-        Customer customer = customerRepository.findByEmail(customerDto.getEmail())
-                .orElseThrow(()-> new NotFoundException("Customer " + customerDto.getEmail() + " not found"));
+    public OrderResponseDto createOrderFromCart(Customer customer, String paymentId) {
 
         ShoppingCart shoppingCart = customer.getShoppingCart();
 
-        System.out.println("Printeando customer con shopping cart " + customer.getShoppingCart());
-
-        if (shoppingCart.getCartItems().isEmpty()) {
+        if (shoppingCart == null || shoppingCart.getCartItems().isEmpty()) {
             throw new ShoppingCartEmptyException("Shopping Cart is empty");
 
         }
@@ -62,18 +49,18 @@ public class OrderService implements com.example.demo.interfaces.OrderService {
         //Creo la orden vacia
         Order order = new Order();
         order.setCustomer(customer);
-        order.setState(OrderState.PENDING);
-        order.setTotal(shoppingCart.getTotal());
         order.setDate(new Date());
+        order.setTotal(shoppingCart.getTotal());
+        order.setState(OrderState.PAID);
+        order.setPaymentId(paymentId);
 
         List<OrderItem> orderItems = shoppingCart.getCartItems()
                 .stream()
                 .map((orderItem -> OrderItemMapper.fromCartItem(orderItem, order)))
                 .toList();
 
-        order.setState(OrderState.PENDING);
         order.setOrderItems(orderItems);
-        order.setTotal(shoppingCart.getTotal());
+      //  order.setTotal(shoppingCart.getTotal());
         orderRepository.save(order);
 
         shoppingCart.getCartItems().clear();
