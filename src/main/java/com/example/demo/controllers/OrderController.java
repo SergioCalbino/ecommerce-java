@@ -25,18 +25,7 @@ public class OrderController {
     }
 
 
-    @PostMapping("/add-order")
-    public ResponseEntity<?> addOrder(@RequestBody OrderDto orderDto) {
-        System.out.println("orderResponseDto = " + orderDto.getCustomerDto().getAddress());
 
-        OrderResponseDto orderResponseDto = orderService.create(orderDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(
-                200,
-                "Order created successfully",
-                orderResponseDto
-        ));
-
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id){

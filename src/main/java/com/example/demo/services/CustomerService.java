@@ -104,6 +104,12 @@ public class CustomerService implements com.example.demo.interfaces.CustomerServ
 
     }
 
+    @Override
+    public Customer getCustomerByEmail(String email) {
+        return customerRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Customer not found"));
+    }
+
     // 👉 Versión que devuelve el DTO para otras situaciones
     @Override
     public CustomerResponseDto create(CustomerDto customerDto) {
